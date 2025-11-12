@@ -1,31 +1,55 @@
-kiến trúc tiêu chuẩn cho từng module 
+Kiến trúc tiêu chuẩn cho từng module trong One Laravel
 
-        ├── Actions/             # Xử lý hành động phức tạp, đơn nhiệm
-        │   ├── Web/
-        │   ├── Api/
-        │   ├── Admin/
-        │   └── Socket/
-        ├── DTOs/                # Đối tượng truyền dữ liệu (Data Transfer Objects)
-        ├── Events/              # Các sự kiện do module phát sinh
-        ├── Exceptions/          # Các Exception tùy chỉnh của module
-        ├── Http/
-        │   ├── Controllers/     # Controller cho Web/API/Admin/Socket
-        │   ├── Middleware/      # Middleware riêng
-        │   └── Requests/        # FormRequest riêng
-        ├── Jobs/                # Queue jobs
-        ├── Listeners/           # Lắng nghe các sự kiện
-        ├── Models/              # Eloquent Models
-        ├── Policies/            # Policy riêng
-        ├── Providers/
-        │   └── ModuleServiceProvider.php   # Khai báo routes, bind service, load view,...
-        ├── Repositories/       # Giao diện + triển khai logic truy xuất dữ liệu
-        ├── Resources/
-        │   ├── views/           # Blade (nếu có)
-        │   └── lang/            # Localization (nếu cần)
-        ├── Routes/
-        │   ├── web.php
-        │   ├── api.php
-        │   ├── admin.php
-        │   └── socket.php
-        ├── Services/            # Business logic (tác vụ xử lý chính)
-        └── Traits/              # Trait dùng lại nội bộ module
+Cấu trúc module thực tế:
+
+ModuleName/
+├── Models/                    # Eloquent Models
+│   └── ModuleName.php
+├── Repositories/              # Data Access Layer
+│   ├── ModuleNameRepository.php
+│   └── ModuleNameRepositoryInterface.php
+├── Services/                  # Business Logic
+│   ├── ModuleNameService.php
+│   └── ModuleNameServiceInterface.php
+├── Http/                      # HTTP Layer
+│   ├── Controllers/          # Controllers (không phân Api/Web/Admin)
+│   │   └── ModuleNameController.php
+│   ├── Requests/             # Form Requests
+│   │   └── StoreModuleNameRequest.php
+│   └── Resources/            # API Resources
+│       └── ModuleNameResource.php
+├── Masks/                     # Data Masks (Steak Masks)
+│   └── ModuleNameMask.php
+├── Providers/                 # Route Service Providers
+│   └── ModuleNameRouteServiceProvider.php
+└── ModuleServiceProvider.php  # Hoặc BootstrapProvider.php
+    # Đăng ký bindings và RouteServiceProvider
+
+Ví dụ thực tế (User Module):
+├── Models/
+│   └── User.php
+├── Repositories/
+│   ├── UserRepository.php
+│   └── UserRepositoryInterface.php
+├── Services/
+│   ├── UserService.php
+│   └── UserServiceInterface.php
+├── Http/
+│   ├── Controllers/
+│   │   └── UserController.php
+│   ├── Requests/
+│   │   ├── StoreUserRequest.php
+│   │   └── UpdateUserRequest.php
+│   └── Resources/
+│       └── UserResource.php
+├── Masks/
+│   └── UserMask.php
+├── Providers/
+│   └── UserRouteServiceProvider.php
+└── ModuleServiceProvider.php
+
+Lưu ý:
+- Controllers KHÔNG phân Api/Web/Admin trong module
+- Routes được đăng ký trong RouteServiceProvider sử dụng Core\System
+- ModuleServiceProvider đăng ký bindings (Repository, Service)
+- Routes được đăng ký qua System::context()->module()->controller()->group()

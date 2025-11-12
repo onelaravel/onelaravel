@@ -13,22 +13,32 @@ Hệ thống được thiết kế theo kiến trúc **Modular + Multi-Context**
 
 #### Cấu Trúc Thư Mục:
 ```
-app/
-├── Contexts/           # Các context ở cấp hệ thống (Api, Web, Admin)
-├── Modules/            # Các module chức năng (User, Post, etc.)
-├── Core/               # AppServiceProvider, middleware global
-├── Shared/             # Dùng chung (Traits, Interfaces, Base Classes)
-└── Support/            # Helpers, Macros, Custom Validators
+app/                    # Laravel Application (standard Laravel structure)
+├── Console/Commands/   # Artisan Commands
+├── Http/Controllers/   # HTTP Controllers
+├── Models/             # Eloquent Models
+├── Providers/          # Service Providers
+└── Services/           # Application Services
 
-src/
-├── core/               # Core system files
-│   ├── Providers/      # Service providers
-│   ├── Services/       # Core services
-│   ├── Http/           # Middleware, View Composers
-│   └── Support/        # SPA support, ViewState
-├── modules/            # Business modules
-├── contexts/           # Context definitions
-└── templates/          # Template processors
+src/                    # Core Source Code (Modular Architecture)
+├── contexts/           # Multi-Context System (Api, Web, Admin)
+│   ├── Admin/         # Admin Context
+│   ├── Api/           # API Context
+│   └── Web/           # Web Context
+├── modules/            # Business Modules (User, Home, PWA, etc.)
+│   ├── User/          # User Module
+│   ├── Home/          # Home Module
+│   └── ...
+├── core/               # Core System
+│   ├── Providers/     # Core Service Providers
+│   ├── Services/      # Core Services (BladeCompilers, View, etc.)
+│   ├── Routing/       # Custom Routing System
+│   ├── Http/          # Middleware, View Composers
+│   └── Support/       # SPA support, ViewState
+├── shared/             # Shared Code (BaseController, BaseService, etc.)
+├── support/            # Utilities & Helpers
+├── infrastructure/     # Infrastructure Layer
+└── templates/          # Module Templates
 ```
 
 ### 2. Blade to JavaScript Compiler

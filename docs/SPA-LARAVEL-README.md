@@ -16,17 +16,16 @@ resources/views/
 │   └── contact.blade.php       # Contact page
 └── ...
 
-public/build/
-├── spa.js                      # SPA core functions
-├── SPARouter.js               # Router system
-├── HttpService.js             # HTTP client
-└── spa.views.js               # Compiled views
+public/static/app/
+├── core.js                    # SPA core functions
+├── views.js                   # Compiled views
+└── main.js                    # Main application bundle
 
-app/Http/Controllers/
-└── WebController.php          # Web controller
-
-routes/
-└── web.php                    # Web routes
+src/modules/Web/
+├── Http/Controllers/
+│   └── Web/WebController.php  # Web controller
+└── Providers/
+    └── WebRouteServiceProvider.php  # Route registration
 ```
 
 ## 🚀 Cách sử dụng
@@ -40,7 +39,11 @@ php artisan serve
 ### 2. Compile Views (nếu cần)
 
 ```bash
-python3 build.py web resources/views
+php artisan blade:compile
+# hoặc
+php artisan views:compile web resources/views
+# hoặc
+npm run compile
 ```
 
 ### 3. Truy cập Demo
@@ -95,17 +98,27 @@ python3 build.py web resources/views
 @endsection
 ```
 
-### 2. Thêm Route
+### 2. Thêm Route trong RouteServiceProvider
 
 ```php
-// routes/web.php
-Route::get('/web/my-page', [WebController::class, 'myPage'])->name('web.my-page');
+// src/modules/Web/Providers/WebRouteServiceProvider.php
+use Core\System;
+use Modules\Web\Http\Controllers\Web\WebController;
+
+System::context('web')
+    ->module(['slug' => 'web', 'prefix' => '/web'])
+    ->controller(WebController::class)
+    ->group(function ($module) {
+        $module->get('/my-page', 'myPage')
+            ->name('my-page')
+            ->view('web.my-page');
+    });
 ```
 
 ### 3. Thêm Controller Method
 
 ```php
-// app/Http/Controllers/WebController.php
+// src/modules/Web/Http/Controllers/Web/WebController.php
 public function myPage()
 {
     return view('web.my-page');
@@ -115,7 +128,9 @@ public function myPage()
 ### 4. Compile Views
 
 ```bash
-python3 build.py web resources/views
+php artisan blade:compile
+# hoặc
+npm run compile
 ```
 
 ### 5. Thêm Route vào SPA Router
@@ -156,10 +171,10 @@ Mở Developer Tools (F12) để xem:
 
 ## 🔄 Workflow
 
-1. **Development**: Tạo Blade views với `@serverside` / `@endserverside`
-2. **Compilation**: Chạy `python3 build.py web resources/views`
-3. **Testing**: Test với Laravel server
-4. **Production**: Deploy với compiled JavaScript
+1. **Development**: Tạo Blade views với các custom directives (`@vars`, `@subscribe`, `@click`, etc.)
+2. **Compilation**: Chạy `php artisan blade:compile` hoặc `npm run compile`
+3. **Testing**: Test với Laravel server (`php artisan serve`)
+4. **Production**: Deploy với compiled JavaScript trong `public/static/app/`
 
 ## ⚡ Performance
 
