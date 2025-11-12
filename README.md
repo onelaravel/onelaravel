@@ -198,6 +198,41 @@ php artisan blade:compile
 
 ### Custom Directives
 
+#### Declaration Directives
+Khai báo variables và state ở đầu file template.
+
+**@vars** - Khai báo variables với giá trị mặc định:
+```blade
+{{-- Khai báo ở đầu file --}}
+@vars($user, $posts = [], $count = 0)
+@vars($name = 'Guest', $age = 18)
+
+{{-- Variables tự động được thêm vào view data và reactive --}}
+<div>
+    <h1>Welcome {{$user->name ?? 'Guest'}}</h1>
+    <p>Posts: {{count($posts)}}</p>
+    <p>Count: {{$count}}</p>
+</div>
+```
+
+**@let** - Khai báo variables local (React useState style):
+```blade
+@let([$count, $setCount] = useState(0))
+@let([$user, $setUser] = useState(null))
+
+<button @click($setCount($count + 1))>
+    Increment: {{$count}}
+</button>
+```
+
+**@const** - Khai báo constants:
+```blade
+@const($MAX_ITEMS = 10)
+@const($API_URL = 'https://api.example.com')
+
+<p>Max items: {{$MAX_ITEMS}}</p>
+```
+
 #### Event Directives
 Xử lý các sự kiện DOM với syntax: `@event(handler(...))`
 
@@ -249,19 +284,42 @@ Xử lý các sự kiện DOM với syntax: `@event(handler(...))`
 
 #### Reactive Directives
 
-**@subscribe** - Subscribe to data changes và re-render khi data thay đổi:
+**@subscribe** - Đăng ký theo dõi state để tự động re-render element khi state thay đổi:
 ```blade
-@subscribe($user->name)
-    <span>User name: {{$user->name}}</span>
-@endsubscribe
+{{-- Subscribe một state --}}
+<div @subscribe($count)>
+    Count: {{$count}}
+</div>
 
-@subscribe($products)
-    <ul>
-        @foreach($products as $product)
-            <li>{{$product->name}}</li>
-        @endforeach
-    </ul>
-@endsubscribe
+{{-- Subscribe nhiều states --}}
+<div @subscribe($count, $name)>
+    Count: {{$count}}, Name: {{$name}}
+</div>
+
+{{-- Subscribe array syntax --}}
+<div @subscribe([$count, $name, $email])>
+    Multiple states
+</div>
+
+{{-- Subscribe tất cả states --}}
+<div @subscribe(@all)>
+    Content auto-updates with any state change
+</div>
+
+{{-- Hoặc dùng true --}}
+<div @subscribe(true)>
+    Subscribe to all states
+</div>
+
+{{-- Không subscribe (opt-out) --}}
+<div @subscribe(false)>
+    This won't auto-update
+</div>
+
+{{-- Hoặc dùng @dontsubscribe --}}
+<div @dontsubscribe>
+    Explicit no subscription
+</div>
 ```
 
 **@yieldattr** - Dynamic attributes:
