@@ -199,15 +199,17 @@ php artisan blade:compile
 ### Custom Directives
 
 #### Declaration Directives
-Khai báo variables và state ở đầu file template.
+Khai báo variables và state **MỘT LẦN** ở đầu file template.
 
-**@vars** - Khai báo variables với giá trị mặc định:
+**@vars** - Khai báo variables nhận từ controller (SSR) hoặc API data (client):
 ```blade
-{{-- Khai báo ở đầu file --}}
+{{-- Khai báo MỘT LẦN ở đầu file --}}
 @vars($user, $posts = [], $count = 0)
-@vars($name = 'Guest', $age = 18)
 
-{{-- Variables tự động được thêm vào view data và reactive --}}
+{{-- Variables được destructure từ data được truyền vào view --}}
+{{-- Từ controller: return view('profile')->with(['user' => $user, 'posts' => $posts]); --}}
+{{-- Từ client: ViewEngine.render('profile', {user: userData, posts: postsList}); --}}
+
 <div>
     <h1>Welcome {{$user->name ?? 'Guest'}}</h1>
     <p>Posts: {{count($posts)}}</p>
@@ -282,45 +284,48 @@ Xử lý các sự kiện DOM với syntax: `@event(handler(...))`
 <span>Total: @val($total)</span>
 ```
 
-#### Reactive Directives
+#### Subscription Configuration
+Cấu hình subscription behavior **MỘT LẦN** ở đầu file để điều khiển auto re-render.
 
-**@subscribe** - Đăng ký theo dõi state để tự động re-render element khi state thay đổi:
+**@subscribe** - Config subscription cho toàn bộ view:
 ```blade
-{{-- Subscribe một state --}}
-<div @subscribe($count)>
-    Count: {{$count}}
-</div>
+{{-- Khai báo MỘT LẦN ở đầu file, ngay sau @vars --}}
 
-{{-- Subscribe nhiều states --}}
-<div @subscribe($count, $name)>
-    Count: {{$count}}, Name: {{$name}}
-</div>
+{{-- 1. Subscribe tất cả states (mặc định nếu có @vars hoặc @let/@useState) --}}
+@subscribe(@all)
+{{-- hoặc --}}
+@subscribe(true)
 
-{{-- Subscribe array syntax --}}
-<div @subscribe([$count, $name, $email])>
-    Multiple states
-</div>
+{{-- 2. Subscribe một state cụ thể --}}
+@subscribe($count)
+{{-- View chỉ re-render khi $count thay đổi --}}
 
-{{-- Subscribe tất cả states --}}
-<div @subscribe(@all)>
-    Content auto-updates with any state change
-</div>
+{{-- 3. Subscribe nhiều states cụ thể --}}
+@subscribe($count, $name)
+{{-- hoặc --}}
+@subscribe([$count, $name, $email])
+{{-- View chỉ re-render khi một trong các state này thay đổi --}}
 
-{{-- Hoặc dùng true --}}
-<div @subscribe(true)>
-    Subscribe to all states
-</div>
+{{-- 4. KHÔNG subscribe (view sẽ không tự động re-render) --}}
+@subscribe(false)
+{{-- hoặc --}}
+@dontsubscribe
 
-{{-- Không subscribe (opt-out) --}}
-<div @subscribe(false)>
-    This won't auto-update
-</div>
+{{-- Ví dụ đầy đủ --}}
+@vars($user, $count = 0)
+@subscribe($count)
+{{-- View này CHỈ re-render khi $count thay đổi, không re-render khi $user thay đổi --}}
 
-{{-- Hoặc dùng @dontsubscribe --}}
-<div @dontsubscribe>
-    Explicit no subscription
+<div>
+    <h1>{{$user->name}}</h1>
+    <p>Count: {{$count}}</p>
 </div>
 ```
+
+**Lưu ý:**
+- Nếu không khai báo `@subscribe`: mặc định subscribe tất cả nếu có `@vars`/`@let`/`@useState`
+- `@dontsubscribe` có độ ưu tiên cao nhất
+- Chỉ khai báo một lần ở đầu file, không phải ở từng element
 
 **@yieldattr** - Dynamic attributes:
 ```blade

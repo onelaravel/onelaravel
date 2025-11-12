@@ -22,14 +22,14 @@ Tài liệu này mô tả chi tiết tất cả các custom directives trong One
 
 ## 1. State Management Directives
 
-### 1.1. `@vars` - Khai báo biến với giá trị mặc định
+### 1.1. `@vars` - Khai báo variables nhận từ data
 
-**Mục đích**: Khai báo và kiểm tra biến với giá trị mặc định, tự động thêm vào view data.
+**Mục đích**: Khai báo **MỘT LẦN** ở đầu file để khai báo các biến sẽ nhận từ controller (SSR) hoặc data khi gọi API (client).
 
 **Cú pháp Blade**:
 ```blade
+{{-- Khai báo MỘT LẦN ở đầu file --}}
 @vars($user, $posts = [], $count = 0)
-@vars($name = 'Guest', $age = 18)
 ```
 
 **Đầu ra PHP**:
@@ -42,12 +42,36 @@ Tài liệu này mô tả chi tiết tất cả các custom directives trong One
 
 **Đầu ra JavaScript**:
 ```javascript
-// View function nhận $$$DATA$$$ parameter
+// Variables được destructure từ __$spaViewData$__
+let {user, posts = [], count = 0} = __$spaViewData$__ || {};
+
 export function ViewName($$$DATA$$$ = {}, systemData = {}) {
-    // Variables được khai báo trong view scope
-    // Variables được update từ $$$DATA$$$ thông qua updateVariableData
-    // Trong render function, variables đã có sẵn trong scope
+    // Variables đã được khai báo và sẵn sàng sử dụng
+    // $$$DATA$$$ được truyền vào sẽ được destructure vào các variables này
 }
+```
+
+**Cách truyền data:**
+
+**Server-Side Rendering (SSR)**:
+```php
+// Trong Controller
+return view('profile')->with([
+    'user' => $user,
+    'posts' => $posts,
+    'count' => 100
+]);
+```
+
+**Client-Side Rendering**:
+```javascript
+// Gọi API và render view
+const data = await fetch('/api/profile').then(r => r.json());
+ViewEngine.render('profile', {
+    user: data.user,
+    posts: data.posts,
+    count: data.count
+});
 ```
 
 **Ví dụ sử dụng**:
@@ -60,6 +84,11 @@ export function ViewName($$$DATA$$$ = {}, systemData = {}) {
     <p>Count: {{ $count }}</p>
 </div>
 ```
+
+**Lưu ý:**
+- Chỉ khai báo **MỘT LẦN** ở đầu file
+- Tất cả variables trong `@vars` sẽ được destructure từ data được truyền vào view
+- Có thể set giá trị mặc định với `=` (ví dụ: `$posts = []`)
 
 ---
 
@@ -415,80 +444,137 @@ render: function() {
 
 ---
 
-## 4. Reactive Directives
+## 4. Subscription Configuration Directives
 
-### 4.1. `@subscribe` - Subscribe to State Changes
+### 4.1. `@subscribe` / `@dontsubscribe` - Config Auto Re-render Behavior
 
-**Mục đích**: Đăng ký theo dõi thay đổi của state để tự động re-render element.
+**Mục đích**: Khai báo **MỘT LẦN** ở đầu file để cấu hình subscription behavior cho toàn bộ view. Điều khiển xem view có tự động re-render khi state thay đổi hay không.
 
 **Cú pháp Blade**:
 ```blade
-<div @subscribe($count)>
-    Count: {{ $count }}
-</div>
+{{-- Khai báo MỘT LẦN ở đầu file, thường ngay sau @vars --}}
 
-<div @subscribe($count, $name)>
-    Count: {{ $count }}, Name: {{ $name }}
-</div>
+{{-- 1. Subscribe tất cả states (mặc định nếu có @vars/@let/@useState) --}}
+@subscribe(@all)
+@subscribe(true)
 
-<div @subscribe([$count, $name])>
-    Multiple states
-</div>
+{{-- 2. Subscribe một state cụ thể --}}
+@subscribe($count)
 
-<div @subscribe(@all)>
-    Subscribe to all states
-</div>
+{{-- 3. Subscribe nhiều states --}}
+@subscribe($count, $name)
+@subscribe([$count, $name, $email])
 
-<div @subscribe(true)>
-    Subscribe to all (explicit)
-</div>
-
-<div @subscribe(false)>
-    Don't subscribe (explicit)
-</div>
-
-<div @dontsubscribe>
-    Don't subscribe (shortcut)
-</div>
-```
-
-**Đầu ra PHP**:
-```php
-<div><?php $__helper->subscribeState($__VIEW_PATH__, $__VIEW_ID__, ["count"]); ?>>
-    Count: <?php echo $count; ?>
-</div>
-
-<div><?php $__helper->subscribeState($__VIEW_PATH__, $__VIEW_ID__, ["count", "name"]); ?>>
-    Count: <?php echo $count; ?>, Name: <?php echo $name; ?>
-</div>
-
-<div><?php $__helper->subscribeState($__VIEW_PATH__, $__VIEW_ID__, true); ?>>
-    Subscribe to all states
-</div>
-
-<div><?php $__helper->subscribeState($__VIEW_PATH__, $__VIEW_ID__, false); ?>>
-    Don't subscribe
-</div>
+{{-- 4. KHÔNG subscribe (view không tự động re-render) --}}
+@subscribe(false)
+@dontsubscribe
 ```
 
 **Đầu ra JavaScript**:
 ```javascript
-// Trong view setup (khi khởi tạo view)
-// Subscribe được gọi tự động khi view được hydrate
-// Config được lưu trong view data và được xử lý bởi ViewEngine
-// Không cần gọi trực tiếp trong init function
+// Trong view configuration
+export function ViewName($$$DATA$$$ = {}, systemData = {}) {
+    // ...variable declarations...
+    
+    // Subscribe config được compile thành:
+    const __subscribeConfig__ = true; // hoặc false, hoặc ["count", "name"]
+    
+    // ViewEngine sử dụng config này để quyết định có re-render view không
+    // khi state thay đổi
+}
 ```
 
-**Lưu ý**:
-- `@subscribe(@all)` hoặc `@subscribe(true)` - subscribe to all states
-- `@subscribe(false)` hoặc `@dontsubscribe` - không subscribe
-- Có thể dùng array syntax `@subscribe([$a, $b])` hoặc comma-separated `@subscribe($a, $b)`
+**Behavior chi tiết**:
 
-**Ví dụ sử dụng**:
+| Config | Behavior | Use Case |
+|--------|----------|----------|
+| `@subscribe(@all)` hoặc `@subscribe(true)` | View re-render khi **BẤT KỲ** state nào thay đổi | View động, cần cập nhật liên tục |
+| `@subscribe($count)` | View CHỈ re-render khi `$count` thay đổi | Tối ưu performance, chỉ quan tâm state cụ thể |
+| `@subscribe($a, $b)` | View re-render khi `$a` HOẶC `$b` thay đổi | Theo dõi nhiều states |
+| `@subscribe(false)` hoặc `@dontsubscribe` | View KHÔNG BAO GIỜ tự động re-render | Static view, render một lần |
+| Không khai báo | Mặc định: `true` nếu có `@vars/@let/@useState`, `false` nếu không | Auto-detect |
+
+**Ví dụ chi tiết**:
+
+**Ví dụ 1: Subscribe tất cả states**
 ```blade
-@let([$count, $setCount] = useState(0))
+@vars($user, $count = 0, $status = 'active')
+@subscribe(@all)
+{{-- View này re-render khi user, count, hoặc status thay đổi --}}
 
-<div @subscribe($count)>
+<div>
+    <h1>{{ $user->name }}</h1>
+    <p>Count: {{ $count }}</p>
+    <p>Status: {{ $status }}</p>
+</div>
+```
+
+**Ví dụ 2: Subscribe state cụ thể để tối ưu**
+```blade
+@vars($user, $count = 0)
+@subscribe($count)
+{{-- View CHỈ re-render khi count thay đổi --}}
+{{-- user thay đổi sẽ KHÔNG trigger re-render -> tối ưu performance --}}
+
+<div>
+    <h1>{{ $user->name }}</h1> {{-- Static, không update --}}
+    <p>Count: {{ $count }}</p> {{-- Dynamic, auto-update --}}
+</div>
+```
+
+**Ví dụ 3: View tĩnh, không subscribe**
+```blade
+@vars($config = [])
+@dontsubscribe
+{{-- View này chỉ render một lần, không bao giờ tự động re-render --}}
+
+<div>
+    <h1>Static Configuration</h1>
+    <pre>{{ json_encode($config) }}</pre>
+</div>
+```
+
+**Ví dụ 4: Subscribe nhiều states**
+```blade
+@vars($user, $posts = [], $likes = 0, $config = [])
+@subscribe($posts, $likes)
+{{-- View re-render khi posts HOẶC likes thay đổi --}}
+{{-- user và config thay đổi sẽ KHÔNG trigger re-render --}}
+
+<div>
+    <h1>{{ $user->name }}</h1>
+    <div>Posts: {{ count($posts) }}</div>
+    <div>Likes: {{ $likes }}</div>
+</div>
+```
+
+**Lưu ý quan trọng**:
+- Chỉ khai báo **MỘT LẦN** ở đầu file blade, KHÔNG phải ở từng element
+- `@dontsubscribe` có độ ưu tiên cao nhất, nếu xuất hiện sẽ override mọi config khác
+- Nếu không khai báo:
+  - Có `@vars`/`@let`/`@useState`: mặc định `@subscribe(true)`
+  - Không có variables: mặc định `@subscribe(false)`
+- Config này ảnh hưởng đến performance: chỉ subscribe states thực sự cần thiết
+
+**Flow hoạt động**:
+```
+1. View được compile với subscribe config
+2. Khi state thay đổi, ViewEngine check config:
+   - Nếu @dontsubscribe hoặc false: SKIP re-render
+   - Nếu @subscribe(@all) hoặc true: RE-RENDER
+   - Nếu @subscribe($key): check xem $key có thay đổi không, nếu có thì RE-RENDER
+3. View được re-render với data mới
+```
+
+**Ví dụ kết hợp với useState**:
+```blade
+@vars($user)
+@let([$count, $setCount] = useState(0))
+@subscribe($count)
+{{-- View chỉ re-render khi $count thay đổi --}}
+
+<div>
+    <h1>{{ $user->name }}</h1>
     <p>Count: {{ $count }}</p>
     <button @click($setCount($count + 1))>Increment</button>
 </div>
