@@ -370,15 +370,41 @@ src/modules/Blog/
 
 ## 📚 Tài liệu
 
-Tài liệu chi tiết được lưu trong thư mục `docs/`:
+Tài liệu chi tiết được lưu trong thư mục `docs/`. Dưới đây là các tài liệu quan trọng nhất:
 
-- [Architecture Overview](docs/ARCHITECTURE.md)
-- [Blade Compiler](docs/BLADE_COMPILER_SUMMARY.md)
-- [Observable System](docs/OBSERVABLE_SYSTEM_README.md)
-- [View Context System](docs/VIEW_CONTEXT_SYSTEM.md)
-- [Custom Directives](docs/CUSTOM_DIRECTIVES.md)
-- [Module Architecture](docs/module-architecture.txt)
-- [Performance Analysis](docs/PERFORMANCE_ANALYSIS_AND_IMPROVEMENT_PLAN.md)
+### 🏗️ Kiến trúc & Tổng quan
+- [Architecture Overview](docs/ARCHITECTURE.md) - Tổng quan kiến trúc hệ thống
+- [System Overview](docs/SYSTEM_OVERVIEW_UPDATE.md) - Cập nhật tổng quan hệ thống
+- [Project Structure](docs/PROJECT_STRUCTURE.md) - Cấu trúc thư mục và tổ chức code
+- [SPA Laravel Overview](docs/SPA-LARAVEL-README.md) - Tổng quan về SPA Laravel
+- [Module Architecture](docs/module-architecture.txt) - Kiến trúc module
+
+### ⚡ Core Systems
+- [Blade Compiler](docs/BLADE_COMPILER_SUMMARY.md) - Tổng quan Blade to JavaScript compiler
+- [Blade to JS Compiler Requirements](docs/BLADE_TO_JS_COMPILER_REQUIREMENTS.md) - Yêu cầu và chi tiết compiler
+- [Observable System](docs/OBSERVABLE_SYSTEM_README.md) - Hệ thống reactive/observable
+- [Observable Documentation](docs/OBSERVABLE_DOCUMENTATION.md) - Tài liệu chi tiết Observable
+- [View Context System](docs/VIEW_CONTEXT_SYSTEM.md) - Hệ thống multi-context
+- [View Context Diagrams](docs/VIEW_CONTEXT_DIAGRAMS.md) - Sơ đồ View Context
+
+### 📝 Directives & Syntax
+- [Custom Directives](docs/CUSTOM_DIRECTIVES.md) - **Tài liệu đầy đủ về tất cả custom directives**
+- [Directives Status](docs/DIRECTIVES_STATUS.md) - Trạng thái implementation các directives
+- [Blade Compiler Command](docs/blade-compiler-command.md) - Hướng dẫn sử dụng compiler command
+
+### 🚀 Performance & Optimization
+- [Performance Analysis](docs/PERFORMANCE_ANALYSIS_AND_IMPROVEMENT_PLAN.md) - Phân tích và kế hoạch tối ưu
+- [View JS Render Optimization](docs/VIEW_JS_RENDER_OPTIMIZATION.md) - Tối ưu rendering
+- [ViewEngine Scan Optimization](docs/VIEWENGINE_SCAN_OPTIMIZATION.md) - Tối ưu ViewEngine scan
+
+### 🔄 Routing & Flow
+- [Route Flow Diagram](docs/ROUTE-FLOW-DIAGRAM.md) - Sơ đồ luồng routing
+- [Route Flow Examples](docs/ROUTE-FLOW-EXAMPLES.md) - Ví dụ về route flow
+
+### 📊 Development & Status
+- [Phase 1 Completion Report](docs/PHASE_1_COMPLETION_REPORT.md) - Báo cáo hoàn thành Phase 1
+- [Improvements Summary](docs/IMPROVEMENTS_SUMMARY.md) - Tóm tắt các cải tiến
+- [Critical Fixes Completion](docs/CRITICAL_FIXES_COMPLETION.md) - Các fix quan trọng đã hoàn thành
 
 ## 🧪 Testing
 
