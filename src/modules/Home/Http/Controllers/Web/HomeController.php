@@ -65,4 +65,36 @@ class HomeController extends Controller
             'data' => $stats
         ]);
     }
+
+    /**
+     * Display the about page
+     */
+    public function about(): View
+    {
+        return view('web.about');
+    }
+
+    /**
+     * Display the contact page
+     */
+    public function contact(): View
+    {
+        return view('web.contact');
+    }
+
+    /**
+     * Display the documentation page
+     */
+    public function docs(): View
+    {
+        return view('web.docs');
+    }
+
+    /**
+     * Display the examples page
+     */
+    public function examples(): View
+    {
+        return view('web.examples');
+    }
 }
