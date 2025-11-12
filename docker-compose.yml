@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # Redis service cho cache và session
+  redis:
+    image: redis:7-alpine
+    container_name: one-laravel_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf --appendonly yes
+    restart: unless-stopped
+    networks:
+      - one-laravel_network
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+
+  # Redis Commander - Web UI để quản lý Redis
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: one-laravel_redis_commander
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      - HTTP_USER=admin
+      - HTTP_PASSWORD=admin123
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - one-laravel_network
+
+  # MySQL database (nếu cần)
+  mysql:
+    image: mysql:8.0
+    container_name: one-laravel_mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: one_laravel
+      MYSQL_USER: one_laravel
+      MYSQL_PASSWORD: one_laravel123
+      TZ: Asia/Ho_Chi_Minh
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    restart: unless-stopped
+    networks:
+      - one-laravel_network
+
+  # phpMyAdmin để quản lý MySQL
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: one-laravel_phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root123
+      MYSQL_ROOT_PASSWORD: root123
+    depends_on:
+      - mysql
+    restart: unless-stopped
+    networks:
+      - one-laravel_network
+
+volumes:
+  redis_data:
+    driver: local
+  mysql_data:
+    driver: local
+
+networks:
+  one-laravel_network:
+    driver: bridge 

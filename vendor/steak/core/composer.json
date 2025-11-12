@@ -1,0 +1,43 @@
+{
+    "name": "steak/core",
+    "description": "Steak - Laravel Core Library for rapid development and security",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Steak Team",
+            "email": "support@Steak.dev"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "laravel/framework": "^11.0|^12.0",
+        "bacon/bacon-qr-code": "^3.0"
+    },
+    "require-dev": {
+        "laravel/octane": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Steak\\Core\\": "src/core/"
+        },
+        "files": [
+            "src/helpers/__loader__.php"
+        ],
+        "classmap": [
+            "src/config/"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Steak\\Core\\Providers\\SteakServiceProvider"
+            ],
+            "aliases": {
+                "Steak": "Steak\\Core\\Facades\\Steak"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

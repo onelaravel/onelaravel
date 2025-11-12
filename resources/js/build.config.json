@@ -1,0 +1,13 @@
+{
+  "output": "main.js",
+  "modules": [
+    "app.js",
+    "HttpService.js",
+    "api.js",
+    "view.js",
+    "view.templates.js",
+    "seo-config.js",
+    "router.js",
+    "init.js"
+  ]
+}

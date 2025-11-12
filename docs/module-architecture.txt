@@ -1,0 +1,31 @@
+kiến trúc tiêu chuẩn cho từng module 
+
+        ├── Actions/             # Xử lý hành động phức tạp, đơn nhiệm
+        │   ├── Web/
+        │   ├── Api/
+        │   ├── Admin/
+        │   └── Socket/
+        ├── DTOs/                # Đối tượng truyền dữ liệu (Data Transfer Objects)
+        ├── Events/              # Các sự kiện do module phát sinh
+        ├── Exceptions/          # Các Exception tùy chỉnh của module
+        ├── Http/
+        │   ├── Controllers/     # Controller cho Web/API/Admin/Socket
+        │   ├── Middleware/      # Middleware riêng
+        │   └── Requests/        # FormRequest riêng
+        ├── Jobs/                # Queue jobs
+        ├── Listeners/           # Lắng nghe các sự kiện
+        ├── Models/              # Eloquent Models
+        ├── Policies/            # Policy riêng
+        ├── Providers/
+        │   └── ModuleServiceProvider.php   # Khai báo routes, bind service, load view,...
+        ├── Repositories/       # Giao diện + triển khai logic truy xuất dữ liệu
+        ├── Resources/
+        │   ├── views/           # Blade (nếu có)
+        │   └── lang/            # Localization (nếu cần)
+        ├── Routes/
+        │   ├── web.php
+        │   ├── api.php
+        │   ├── admin.php
+        │   └── socket.php
+        ├── Services/            # Business logic (tác vụ xử lý chính)
+        └── Traits/              # Trait dùng lại nội bộ module

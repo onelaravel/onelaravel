@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <meta name="description" content="Home Page Description">
+    <meta name="keywords" content="Home, Page, Description">
+    <meta name="csrf-token" content="UqJiYvFn19nL5rpzP0LOKH1HDNn7vXfbSNzPomW4">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: #007cba;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 250px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        /* Dynamic Content */
+        .dynamic-content {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        /* SPA Mode */
+        .spa-mode {
+            transition: all 0.3s ease;
+        }
+
+        .spa-active {
+            border: 2px solid #007cba;
+            border-radius: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .sidebar {
+                position: relative;
+                top: auto;
+                right: auto;
+                width: 100%;
+                margin: 20px 0;
+            }
+
+            .dynamic-content {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin: 20px 0;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app-root" data-server-rendered="true">
+        <!-- [one:view name="layouts.base" id="68fdfbc6e6cf0" follow="false"] --> <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="/web" class="nav-brand">SPA App</a>
+                <div class="nav-menu">
+                    <a href="/web" class="nav-link">Home</a>
+                    <a href="/web/about" class="nav-link">About</a>
+                    <a href="/web/users" class="nav-link">Users</a>
+                    <a href="/web/contact" class="nav-link">Contact</a>
+                    <!-- Test links -->
+                    <a href="https://google.com" class="nav-link" target="_blank">External</a>
+                    <a href="mailto:test@example.com" class="nav-link">Email</a>
+                    <a href="/web/test" class="nav-link" data-nav="disabled">Disabled</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="app-content" data-yield-children="block.document.body">
+            <!-- [one:subscribe type="block" key="document.body"] --><!-- [one:block name="document.body" view="web.home" ref="68fdfbc6e667e"] -->
+            <div class="container">
+                <div class="page">
+                    <h1>🏠 Home Page</h1>
+                    <p>Welcome to the SPA Web Application!</p>
+                    <div class="info">
+                        <strong>Features:</strong>
+                        <ul>
+                            <li>Server-Side Rendering (SSR)</li>
+                            <li>SPA Router with History API</li>
+                            <li>Blade to JavaScript compilation</li>
+                            <li>Subscribe system for dynamic content</li>
+                        </ul>
+                    </div>
+                    <div class="code">
+                        Server render time: 2025-10-26 10:45:26
+                        <!-- [one:follow type="state" following="userState" id="68fdfbc6e6bac"] -->
+                        <div class="user-info">
+                            <h2>User Info</h2>
+                            <p>Name: John</p>
+                            <p>Email: john@example.com</p>
+                            <p>Role: Admin</p>
+                        </div>
+                        <!-- [/one:follow] -->
+
+                    </div>
+                    <!-- [one:follow type="state" following="items" id="68fdfbc6e6bb4"] -->
+                    <div class="items-list">
+                        <p data-click-id="68fdfbc6e6bbb">item1</p>
+                        <p data-click-id="68fdfbc6e6bbe">item2</p>
+                        <p data-click-id="68fdfbc6e6bbf">item3</p>
+                    </div>
+                    <!-- [/one:follow] -->
+                    <div class="actions">
+                        <a href="/web/about" class="btn">About Us</a>
+                        <a href="/web/users" class="btn">Users</a>
+                        <a href="/web/contact" class="btn">Contact</a>
+                    </div>
+                    <!-- [one:view name="templates.test" id="68fdfbc6e6bda"] --> <template>
+                        <div>
+                            <h1>Test</h1>
+                        </div>
+                    </template>
+                    <!-- [/one:view] -->
+                </div>
+                <!-- Subscribe areas -->
+                <div class="page">
+                    <h2>Dynamic Content</h2>
+                    <div spa-yield-content="sidebar">
+                        <p>Home sidebar content (server rendered)</p>
+                    </div>
+                    <div spa-yield-attr="class:pageClass,data-theme:theme">
+                        <p>This div has dynamic attributes</p>
+                    </div>
+                </div>
+            </div>
+            <style>
+                .container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 20px;
+                }
+
+                .page {
+                    background: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    margin-bottom: 20px;
+                }
+
+                .page h1 {
+                    color: #333;
+                    margin-top: 0;
+                }
+
+                .page h2 {
+                    color: #666;
+                    border-bottom: 2px solid #007cba;
+                    padding-bottom: 10px;
+                }
+
+                .info {
+                    background: #e3f2fd;
+                    padding: 15px;
+                    border-radius: 4px;
+                    margin: 15px 0;
+                    border-left: 4px solid #2196f3;
+                }
+
+                .code {
+                    background: #f8f8f8;
+                    padding: 15px;
+                    border-radius: 4px;
+                    font-family: monospace;
+                    font-size: 14px;
+                    margin: 15px 0;
+                    border-left: 4px solid #007cba;
+                }
+
+                .actions {
+                    margin-top: 20px;
+                }
+
+                .btn {
+                    background: #007cba;
+                    color: white;
+                    text-decoration: none;
+                    padding: 10px 20px;
+                    border-radius: 4px;
+                    margin-right: 10px;
+                    display: inline-block;
+                    transition: background-color 0.3s;
+                }
+
+                .btn:hover {
+                    background: #005a87;
+                }
+            </style>
+            <!-- [/one:block] --><!-- [/one:subscribe] -->
+        </div>
+        <!-- Demo one-nav-link attribute on any element -->
+        <div style="position: fixed; bottom: 20px; left: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 1000;">
+            <h4 style="margin: 0 0 10px 0; color: #333;">one-nav-link Demo</h4>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button one-nav one-nav-link="/web" style="padding: 8px 12px; background: #007cba; color: white; border: none; border-radius: 4px; cursor: pointer;">Home</button>
+                <button one-nav one-nav-link="/web/about" style="padding: 8px 12px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">About</button>
+                <button one-nav one-nav-link="/web/users" style="padding: 8px 12px; background: #ffc107; color: black; border: none; border-radius: 4px; cursor: pointer;">Users</button>
+                <div one-nav one-nav-link="/web/contact" style="padding: 8px 12px; background: #dc3545; color: white; border-radius: 4px; cursor: pointer; display: inline-block;">Contact</div>
+                <span one-nav one-nav-link="https://127.0.0.1:8000/web/test-fetch" style="padding: 8px 12px; background: #6f42c1; color: white; border-radius: 4px; cursor: pointer; display: inline-block;">Test Fetch</span>
+                <button one-nav one-nav-link="/web/test" one-nav-disabled style="padding: 8px 12px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: not-allowed; opacity: 0.6;">Disabled</button>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h3>Sidebar</h3>
+            <p>Default sidebar content</p>
+        </aside>
+
+        <!-- Dynamic Attributes -->
+        <div class="dynamic-content">
+            <p>Dynamic content area</p>
+        </div>
+        <!-- END BASE layouts.base 68fdfbc6e6cf0   -->
+        <google-analytics data-wrap data-wrap-view="templates.ga-js" data-wrap-id="68fdfbc6e6d33" follow="test,isUseGoogleAnalytics">
+            <script>
+                (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+                ga('create', '', 'auto');
+                ga('send', 'pageview');
+            </script>
+        </google-analytics> <google-analytics data-wrap data-wrap-view="templates.ga-js" data-wrap-id="68fdfbc6e6d55" follow="test,isUseGoogleAnalytics">
+            <script>
+                (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+                ga('create', '', 'auto');
+                ga('send', 'pageview');
+            </script>
+        </google-analytics> <google-analytics data-wrap data-wrap-view="templates.ga-js" data-wrap-id="68fdfbc6e6d62" follow="test,isUseGoogleAnalytics">
+            <script>
+                (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+                ga('create', '', 'auto');
+                ga('send', 'pageview');
+            </script>
+        </google-analytics> <!-- [/one:view] -->
+    </div>
+    <!-- SPA Scripts (load in order) -->
+    <script src="http://127.0.0.1:8000/static/app/core.js"></script>
+    <script src="http://127.0.0.1:8000/static/app/views.js"></script>
+    <script src="http://127.0.0.1:8000/static/app/main.js"></script>
+    <!-- SPA Configuration -->
+    <script>
+        window.APP_CONFIGS = {
+            container: '#app-root',
+            mode: 'development',
+            spaScope: 'web',
+            currentUser: null,
+            api: {
+                baseUrl: 'http://127.0.0.1:8000/api',
+                csrfToken: 'UqJiYvFn19nL5rpzP0LOKH1HDNn7vXfbSNzPomW4',
+                endpoints: {
+                    system: {
+                        config: 'system/config',
+                        data: 'system/data'
+                    },
+                    users: {
+                        list: 'users',
+                        detail: 'users/:id'
+                    },
+                    posts: {
+                        list: 'posts',
+                        detail: 'posts/:id'
+                    },
+                    auth: {
+                        login: 'auth/login',
+                        logout: 'auth/logout',
+                        register: 'auth/register'
+                    }
+                }
+            },
+            data: {
+                siteName: 'SPA App',
+                version: '1.0.0',
+                environment: 'local'
+            },
+            lang: {
+                vi: {
+                    name: 'Tiếng Việt',
+                    locale: 'vi',
+                    fallback: 'en'
+                },
+                en: {
+                    name: 'English',
+                    locale: 'en',
+                    fallback: 'en'
+                },
+                ja: {
+                    name: '日本語',
+                    locale: 'ja',
+                    fallback: 'en'
+                },
+                cn: {
+                    name: '中文',
+                    locale: 'cn',
+                    fallback: 'en'
+                }
+            },
+            router: {
+                mode: 'history',
+                base: '/',
+                allRoutes: [
+                    {
+                        "name": "admin.index",
+                        "path": "/admin",
+                        "params": [],
+                        "component": null
+                    },
+                    {
+                        "name": "admin.pwa.index",
+                        "path": "/admin",
+                        "params": [],
+                        "component": null
+                    },
+                    {
+                        "name": "admin.pwa.edit",
+                        "path": "/admin/edit",
+                        "params": [],
+                        "component": null
+                    },
+                    {
+                        "name": "admin.pwa.update",
+                        "path": "/admin/update",
+                        "params": [],
+                        "component": null
+                    },
+                    {
+                        "name": "admin.pwa.preview.manifest",
+                        "path": "/admin/preview/manifest",
+                        "params": [],
+                        "component": null
+                    },
+                    {
+                        "name": "admin.pwa.preview.service-worker",
+                        "path": "/admin/preview/service-worker",
+                        "params": [],
+                        "component": null
+                    },
+                    {
+                        "name": "web.index",
+                        "path": "/web",
+                        "params": [],
+                        "component": "web.home"
+                    },
+                    {
+                        "name": "web.about",
+                        "path": "/web/about",
+                        "params": [],
+                        "component": "web.about"
+                    },
+                    {
+                        "name": "web.contact",
+                        "path": "/web/contact",
+                        "params": [],
+                        "component": "web.contact"
+                    },
+                    {
+                        "name": "web.users",
+                        "path": "/web/users",
+                        "params": [],
+                        "component": "web.users"
+                    },
+                    {
+                        "name": "web.user.detail",
+                        "path": "/web/users/{id}",
+                        "params": [
+                            "id"
+                        ],
+                        "component": "web.user-detail"
+                    },
+                    {
+                        "name": "web.home",
+                        "path": "/",
+                        "params": [],
+                        "component": null
+                    },
+                    {
+                        "name": "web.pwa.manifest",
+                        "path": "/manifest.json",
+                        "params": [],
+                        "component": null
+                    },
+                    {
+                        "name": "web.pwa.service-worker",
+                        "path": "/service-worker.js",
+                        "params": [],
+                        "component": null
+                    },
+                    {
+                        "name": "web.pwa.sw",
+                        "path": "/sw.js",
+                        "params": [],
+                        "component": null
+                    },
+                    {
+                        "name": "web.pwa.config",
+                        "path": "/config",
+                        "params": [],
+                        "component": null
+                    },
+                    {
+                        "name": "web.pwa.update-config",
+                        "path": "/config",
+                        "params": [],
+                        "component": null
+                    }
+                ],
+                routes: [
+                    {
+                        "name": "web.index",
+                        "path": "/web",
+                        "params": [],
+                        "component": "web.home"
+                    },
+                    {
+                        "name": "web.about",
+                        "path": "/web/about",
+                        "params": [],
+                        "component": "web.about"
+                    },
+                    {
+                        "name": "web.contact",
+                        "path": "/web/contact",
+                        "params": [],
+                        "component": "web.contact"
+                    },
+                    {
+                        "name": "web.users",
+                        "path": "/web/users",
+                        "params": [],
+                        "component": "web.users"
+                    },
+                    {
+                        "name": "web.user.detail",
+                        "path": "/web/users/{id}",
+                        "params": [
+                            "id"
+                        ],
+                        "component": "web.user-detail"
+                    }
+                ],
+                beforeEach: function (to, from) {
+                    console.log('Navigating to:', to.path);
+                    return true;
+                },
+                afterEach: function (to, from) {
+                    console.log('Navigation complete:', to.path);
+                    // Update active nav link
+                    updateActiveNav(to.path);
+                }
+            },
+            view: {
+                systemData: {
+                    ref: "config", // config / api / direct
+                    title: "Home Page",
+                },
+                superView: "layouts.base",
+                ssrData: {
+                    "web.home": {
+                        "scripts": [],
+                        "styles": [],
+                        "resources": [],
+                        "instances": {
+                            "68fdfbc6e667e": {
+                                "viewId": "68fdfbc6e667e",
+                                "data": {
+                                    "user": {
+                                        "name": "John",
+                                        "email": "john@example.com",
+                                        "role": "Admin",
+                                        "id": 1,
+                                        "joined": "2021-01-01",
+                                        "status": "active"
+                                    }
+                                },
+                                "events": {
+                                    "click": {
+                                        "68fdfbc6e6bbb": [
+                                            {
+                                                "handler": "ClickItem",
+                                                "params": [
+                                                    "item1"
+                                                ]
+                                            }
+                                        ],
+                                        "68fdfbc6e6bbe": [
+                                            {
+                                                "handler": "ClickItem",
+                                                "params": [
+                                                    "item2"
+                                                ]
+                                            }
+                                        ],
+                                        "68fdfbc6e6bbf": [
+                                            {
+                                                "handler": "ClickItem",
+                                                "params": [
+                                                    "item3"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                },
+                                "following": [
+                                    {
+                                        "id": "68fdfbc6e6bac",
+                                        "stateKeys": [
+                                            "userState"
+                                        ]
+                                    },
+                                    {
+                                        "id": "68fdfbc6e6bb4",
+                                        "stateKeys": [
+                                            "items"
+                                        ]
+                                    }
+                                ],
+                                "children": [
+                                    {
+                                        "name": "templates.test",
+                                        "id": "68fdfbc6e6bda"
+                                    },
+                                    {
+                                        "name": "layouts.base",
+                                        "id": "68fdfbc6e6cf0"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "templates.test": {
+                        "scripts": [],
+                        "styles": [],
+                        "resources": [],
+                        "instances": {
+                            "68fdfbc6e6bda": {
+                                "viewId": "68fdfbc6e6bda",
+                                "data": [],
+                                "events": [],
+                                "parent": {
+                                    "name": "web.home",
+                                    "id": "68fdfbc6e667e"
+                                }
+                            }
+                        }
+                    },
+                    "layouts.base": {
+                        "scripts": [],
+                        "styles": [],
+                        "resources": [],
+                        "instances": {
+                            "68fdfbc6e6cf0": {
+                                "viewId": "68fdfbc6e6cf0",
+                                "data": [],
+                                "events": [],
+                                "parent": {
+                                    "name": "web.home",
+                                    "id": "68fdfbc6e667e"
+                                },
+                                "children": [
+                                    {
+                                        "name": "templates.ga-js",
+                                        "id": "68fdfbc6e6d33"
+                                    },
+                                    {
+                                        "name": "templates.ga-js",
+                                        "id": "68fdfbc6e6d55"
+                                    },
+                                    {
+                                        "name": "templates.ga-js",
+                                        "id": "68fdfbc6e6d62"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "templates.ga-js": {
+                        "scripts": [],
+                        "styles": [],
+                        "resources": [],
+                        "instances": {
+                            "68fdfbc6e6d33": {
+                                "viewId": "68fdfbc6e6d33",
+                                "data": [],
+                                "events": [],
+                                "parent": {
+                                    "name": "layouts.base",
+                                    "id": "68fdfbc6e6cf0"
+                                }
+                            },
+                            "68fdfbc6e6d55": {
+                                "viewId": "68fdfbc6e6d55",
+                                "data": [],
+                                "events": [],
+                                "parent": {
+                                    "name": "layouts.base",
+                                    "id": "68fdfbc6e6cf0"
+                                }
+                            },
+                            "68fdfbc6e6d62": {
+                                "viewId": "68fdfbc6e6d62",
+                                "data": [],
+                                "events": [],
+                                "parent": {
+                                    "name": "layouts.base",
+                                    "id": "68fdfbc6e6cf0"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // Function to update active navigation link
+        function updateActiveNav(currentPath) {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        App.init();
+    </script>
+
+    <!-- SPA Ready Handler -->
+    <script>
+        document.addEventListener('app:ready', function (event) {
+            console.log('🎉 SPA is ready!');
+            App.View.__curentMasterView__ = 'layouts.base';
+        });
+    </script>
+</body>
+
+</html>

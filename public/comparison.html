@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>So sánh One View với React, Vue, Angular</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .framework-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .framework-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .framework-card.one-blade {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .framework-card.react {
+            background: linear-gradient(135deg, #61dafb 0%, #087ea4 100%);
+            color: white;
+        }
+
+        .framework-card.vue {
+            background: linear-gradient(135deg, #4fc08d 0%, #35495e 100%);
+            color: white;
+        }
+
+        .framework-card.angular {
+            background: linear-gradient(135deg, #dd0031 0%, #c3002f 100%);
+            color: white;
+        }
+
+        .framework-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .framework-icon {
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .framework-name {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .framework-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-top: 5px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .badge-yes {
+            background: #4caf50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            display: inline-block;
+        }
+
+        .badge-no {
+            background: #f44336;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            display: inline-block;
+        }
+
+        .badge-partial {
+            background: #ff9800;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            display: inline-block;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .code-example {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 2em;
+            margin: 40px 0 20px 0;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .pros, .cons {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .pros h3, .cons h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .pros ul, .cons ul {
+            list-style: none;
+        }
+
+        .pros li:before {
+            content: "✓ ";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .cons li:before {
+            content: "✗ ";
+            color: #f44336;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 10px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 So sánh Framework</h1>
+            <p class="subtitle">One View vs React vs Vue vs Angular</p>
+        </header>
+
+        <div class="comparison-grid">
+            <div class="framework-card one-blade">
+                <div class="framework-header">
+                    <div class="framework-icon">⚡</div>
+                    <div>
+                        <div class="framework-name">One View</div>
+                        <span class="framework-badge">Laravel Native</span>
+                    </div>
+                </div>
+                <ul class="feature-list">
+                    <li><span class="feature-icon">🎯</span> Blade → JS Compiler</li>
+                    <li><span class="feature-icon">🔄</span> SSR Hydration</li>
+                    <li><span class="feature-icon">📦</span> Tích hợp Laravel</li>
+                    <li><span class="feature-icon">⚡</span> Zero Runtime</li>
+                    <li><span class="feature-icon">🎨</span> Template Directives</li>
+                    <li><span class="feature-icon">🔌</span> Event Directives</li>
+                </ul>
+            </div>
+
+            <div class="framework-card react">
+                <div class="framework-header">
+                    <div class="framework-icon">⚛️</div>
+                    <div>
+                        <div class="framework-name">React</div>
+                        <span class="framework-badge">Meta</span>
+                    </div>
+                </div>
+                <ul class="feature-list">
+                    <li><span class="feature-icon">⚛️</span> Component-based</li>
+                    <li><span class="feature-icon">🔄</span> Virtual DOM</li>
+                    <li><span class="feature-icon">📚</span> Ecosystem lớn</li>
+                    <li><span class="feature-icon">🎯</span> JSX Syntax</li>
+                    <li><span class="feature-icon">🔧</span> Hooks API</li>
+                    <li><span class="feature-icon">📦</span> Rich Tooling</li>
+                </ul>
+            </div>
+
+            <div class="framework-card vue">
+                <div class="framework-header">
+                    <div class="framework-icon">🟢</div>
+                    <div>
+                        <div class="framework-name">Vue.js</div>
+                        <span class="framework-badge">Evan You</span>
+                    </div>
+                </div>
+                <ul class="feature-list">
+                    <li><span class="feature-icon">📝</span> Template-based</li>
+                    <li><span class="feature-icon">🔄</span> Reactive System</li>
+                    <li><span class="feature-icon">📦</span> Single File Components</li>
+                    <li><span class="feature-icon">🎯</span> Progressive Framework</li>
+                    <li><span class="feature-icon">🔧</span> Composition API</li>
+                    <li><span class="feature-icon">📚</span> Vue Router & Vuex</li>
+                </ul>
+            </div>
+
+            <div class="framework-card angular">
+                <div class="framework-header">
+                    <div class="framework-icon">🅰️</div>
+                    <div>
+                        <div class="framework-name">Angular</div>
+                        <span class="framework-badge">Google</span>
+                    </div>
+                </div>
+                <ul class="feature-list">
+                    <li><span class="feature-icon">🏗️</span> Full Framework</li>
+                    <li><span class="feature-icon">📦</span> TypeScript First</li>
+                    <li><span class="feature-icon">🔄</span> Dependency Injection</li>
+                    <li><span class="feature-icon">🎯</span> RxJS Integration</li>
+                    <li><span class="feature-icon">🔧</span> CLI Tools</li>
+                    <li><span class="feature-icon">📚</span> Enterprise Ready</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="section-title">📊 Bảng So Sánh Chi Tiết</h2>
+
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tính năng</th>
+                        <th>One Blade View</th>
+                        <th>React</th>
+                        <th>Vue.js</th>
+                        <th>Angular</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Kiểu Template</strong></td>
+                        <td><span class="badge-yes">Blade Syntax</span></td>
+                        <td><span class="badge-yes">JSX</span></td>
+                        <td><span class="badge-yes">HTML-like Template</span></td>
+                        <td><span class="badge-yes">HTML Template</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compile Time</strong></td>
+                        <td><span class="badge-yes">Pre-compiled</span></td>
+                        <td><span class="badge-partial">Runtime + Compile</span></td>
+                        <td><span class="badge-partial">Runtime + Compile</span></td>
+                        <td><span class="badge-partial">AOT Compile</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tích hợp Laravel</strong></td>
+                        <td><span class="badge-yes">Native</span></td>
+                        <td><span class="badge-no">Cần API</span></td>
+                        <td><span class="badge-no">Cần API</span></td>
+                        <td><span class="badge-no">Cần API</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>SSR Support</strong></td>
+                        <td><span class="badge-yes">Hydration Built-in</span></td>
+                        <td><span class="badge-yes">Next.js</span></td>
+                        <td><span class="badge-yes">Nuxt.js</span></td>
+                        <td><span class="badge-yes">Angular Universal</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>State Management</strong></td>
+                        <td><span class="badge-yes">Built-in ViewState</span></td>
+                        <td><span class="badge-partial">Redux/Zustand</span></td>
+                        <td><span class="badge-partial">Vuex/Pinia</span></td>
+                        <td><span class="badge-yes">NgRx/Akita</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bundle Size</strong></td>
+                        <td><span class="badge-yes">~0KB Runtime</span></td>
+                        <td><span class="badge-partial">~45KB (gzip)</span></td>
+                        <td><span class="badge-partial">~34KB (gzip)</span></td>
+                        <td><span class="badge-no">~150KB+ (gzip)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Learning Curve</strong></td>
+                        <td><span class="badge-yes">Dễ (Blade)</span></td>
+                        <td><span class="badge-partial">Trung bình</span></td>
+                        <td><span class="badge-yes">Dễ</span></td>
+                        <td><span class="badge-no">Khó</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TypeScript</strong></td>
+                        <td><span class="badge-partial">Optional</span></td>
+                        <td><span class="badge-yes">Full Support</span></td>
+                        <td><span class="badge-yes">Full Support</span></td>
+                        <td><span class="badge-yes">Required</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Event Handling</strong></td>
+                        <td><span class="badge-yes">@click, @submit...</span></td>
+                        <td><span class="badge-yes">onClick, onSubmit</span></td>
+                        <td><span class="badge-yes">@click, @submit</span></td>
+                        <td><span class="badge-yes">(click), (submit)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Directive System</strong></td>
+                        <td><span class="badge-yes">@if, @foreach, @template</span></td>
+                        <td><span class="badge-no">Không có</span></td>
+                        <td><span class="badge-partial">v-if, v-for</span></td>
+                        <td><span class="badge-partial">*ngIf, *ngFor</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ecosystem</strong></td>
+                        <td><span class="badge-partial">Laravel Ecosystem</span></td>
+                        <td><span class="badge-yes">Rất lớn</span></td>
+                        <td><span class="badge-yes">Rất lớn</span></td>
+                        <td><span class="badge-yes">Rất lớn</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Server Components</strong></td>
+                        <td><span class="badge-yes">@serverside/@clientside</span></td>
+                        <td><span class="badge-partial">Next.js 13+</span></td>
+                        <td><span class="badge-no">Không có</span></td>
+                        <td><span class="badge-no">Không có</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Code Splitting</strong></td>
+                        <td><span class="badge-yes">Auto by View</span></td>
+                        <td><span class="badge-yes">React.lazy</span></td>
+                        <td><span class="badge-yes">Dynamic Import</span></td>
+                        <td><span class="badge-yes">Lazy Loading</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="section-title">💡 Ví Dụ Code</h2>
+
+        <div class="comparison-table">
+            <h3 style="margin-bottom: 20px;">Component với State</h3>
+            
+            <h4 style="margin-top: 30px; color: #667eea;">One Blade View</h4>
+            <div class="code-example">
+<pre>
+@const([$count, $setCount] = useState(0))
+
+&lt;div&gt;
+&lt;h1&gt;Count: {{ $count }}&lt;/h1&gt;
+    &lt;button @click(increment())&gt;
+        Increment
+    &lt;/button&gt;
+&lt;/div&gt;
+@register($__VIEW_ID__)
+&lt;script setup&gt;
+    export default {
+        increment() {
+            setCount(count + 1);
+        }
+    }
+&lt;/script&gt;
+@endregister
+</pre>
+
+</div>
+
+            <h4 style="margin-top: 30px; color: #61dafb;">React</h4>
+            <div class="code-example"><pre>import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Count: {count}&lt;/h1&gt;
+      &lt;button onClick={() => setCount(count + 1)}&gt;
+        Increment
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</pre></div>
+
+            <h4 style="margin-top: 30px; color: #4fc08d;">Vue.js</h4>
+            <div class="code-example"><pre>&lt;template&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Count: {{ count }}&lt;/h1&gt;
+    &lt;button @click="count++"&gt;
+      Increment
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+import { ref } from 'vue';
+
+const count = ref(0);
+&lt;/script&gt;</pre></div>div>
+
+            <h4 style="margin-top: 30px; color: #dd0031;">Angular</h4>
+            <div class="code-example"><pre>import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-counter',
+  template: `
+    &lt;div&gt;
+      &lt;h1&gt;Count: {{ count }}&lt;/h1&gt;
+      &lt;button (click)="increment()"&gt;
+        Increment
+      &lt;/button&gt;
+    &lt;/div&gt;
+  `
+})
+export class CounterComponent {
+  count = 0;
+  
+  increment() {
+    this.count++;
+  }
+}</pre></div>div>
+        </div>
+
+        <h2 class="section-title">✅ Ưu Điểm & ❌ Nhược Điểm</h2>
+
+        <div class="comparison-grid">
+            <div class="framework-card one-blade">
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h3>✅ Ưu Điểm</h3>
+                        <ul>
+                            <li>Zero runtime overhead</li>
+                            <li>Tích hợp native với Laravel</li>
+                            <li>Không cần học syntax mới (Blade)</li>
+                            <li>SSR hydration built-in</li>
+                            <li>Bundle size nhỏ nhất</li>
+                            <li>Compile-time optimization</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h3>❌ Nhược Điểm</h3>
+                        <ul>
+                            <li>Chỉ dành cho Laravel</li>
+                            <li>Ecosystem nhỏ hơn</li>
+                            <li>Cần compile step</li>
+                            <li>Ít community hơn</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="framework-card react">
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h3>✅ Ưu Điểm</h3>
+                        <ul>
+                            <li>Ecosystem lớn nhất</li>
+                            <li>Flexibility cao</li>
+                            <li>Community mạnh</li>
+                            <li>Industry standard</li>
+                            <li>React Native support</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h3>❌ Nhược Điểm</h3>
+                        <ul>
+                            <li>Runtime overhead</li>
+                            <li>JSX learning curve</li>
+                            <li>Cần nhiều dependencies</li>
+                            <li>Không tích hợp Laravel</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="framework-card vue">
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h3>✅ Ưu Điểm</h3>
+                        <ul>
+                            <li>Dễ học nhất</li>
+                            <li>Progressive framework</li>
+                            <li>Documentation tốt</li>
+                            <li>Performance tốt</li>
+                            <li>Template-based</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h3>❌ Nhược Điểm</h3>
+                        <ul>
+                            <li>Runtime overhead</li>
+                            <li>Ecosystem nhỏ hơn React</li>
+                            <li>Không tích hợp Laravel</li>
+                            <li>Corporate backing nhỏ hơn</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="framework-card angular">
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h3>✅ Ưu Điểm</h3>
+                        <ul>
+                            <li>Full-featured framework</li>
+                            <li>TypeScript native</li>
+                            <li>Enterprise ready</li>
+                            <li>CLI tools mạnh</li>
+                            <li>Google backing</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h3>❌ Nhược Điểm</h3>
+                        <ul>
+                            <li>Bundle size lớn</li>
+                            <li>Learning curve cao</li>
+                            <li>Over-engineering</li>
+                            <li>Không tích hợp Laravel</li>
+                            <li>Complexity cao</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison-table" style="margin-top: 40px;">
+            <h2 style="color: #667eea; margin-bottom: 20px;">🎯 Khi Nào Dùng Cái Nào?</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="background: rgba(102, 126, 234, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #667eea;">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">⚡ One Blade View</h3>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Dự án Laravel hiện tại</li>
+                        <li>✓ Muốn tái sử dụng Blade templates</li>
+                        <li>✓ Cần performance tối đa</li>
+                        <li>✓ SSR là yêu cầu quan trọng</li>
+                        <li>✓ Team đã quen với Blade</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(97, 218, 251, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #61dafb;">
+                    <h3 style="color: #61dafb; margin-bottom: 10px;">⚛️ React</h3>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Dự án mới từ đầu</li>
+                        <li>✓ Cần ecosystem lớn</li>
+                        <li>✓ Team lớn, nhiều developers</li>
+                        <li>✓ Cần mobile app (React Native)</li>
+                        <li>✓ Flexibility là ưu tiên</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(79, 192, 141, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #4fc08d;">
+                    <h3 style="color: #4fc08d; margin-bottom: 10px;">🟢 Vue.js</h3>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Dự án vừa và nhỏ</li>
+                        <li>✓ Team mới học frontend</li>
+                        <li>✓ Cần học nhanh</li>
+                        <li>✓ Progressive adoption</li>
+                        <li>✓ Template-based preference</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(221, 0, 49, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #dd0031;">
+                    <h3 style="color: #dd0031; margin-bottom: 10px;">🅰️ Angular</h3>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Enterprise applications</li>
+                        <li>✓ TypeScript required</li>
+                        <li>✓ Large teams, complex projects</li>
+                        <li>✓ Need full framework solution</li>
+                        <li>✓ Long-term maintenance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer style="text-align: center; color: white; margin-top: 50px; opacity: 0.8;">
+            <p>Made with ❤️ for Laravel Developers</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">One Blade View - Compile Blade to JavaScript for SPA</p>
+        </footer>
+    </div>
+</body>
+</html>
+
