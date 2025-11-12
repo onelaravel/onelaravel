@@ -22,19 +22,42 @@ one-laravel/
 │   │   └── Web/                  # Web Context
 │   │
 │   ├── core/                     # Core System
-│   │   ├── BladeCompiler/        # Blade Compiler Services
+│   │   ├── BladeCompiler/        # Blade Compiler (legacy)
+│   │   ├── Context.php           # Context handler
+│   │   ├── System.php            # System manager
 │   │   ├── Http/                 # HTTP Layer
+│   │   │   ├── Middleware/       # Core middleware
+│   │   │   └── ViewComposers/    # View composers
 │   │   ├── Providers/            # Core Service Providers
+│   │   │   ├── BladeDirectiveServiceProvider.php
+│   │   │   ├── OneServiceProvider.php
+│   │   │   └── ViewContextServiceProvider.php
 │   │   ├── Routing/              # Routing System
+│   │   │   ├── Router.php
+│   │   │   ├── Module.php
+│   │   │   ├── Action.php
+│   │   │   └── RouteMethods.php
 │   │   ├── Services/             # Core Services
 │   │   │   ├── BladeCompilers/   # Blade Directive Services
-│   │   │   │   ├── BindingDirectiveService.php
-│   │   │   │   ├── EventDirectiveService.php
-│   │   │   │   └── SetupDirectiveService.php
-│   │   │   ├── ViewHelperService.php
-│   │   │   └── ViewStorageManager.php
+│   │   │   │   ├── BindingDirectiveService.php    # @val, @bind
+│   │   │   │   ├── EventDirectiveService.php      # @click, @input, etc.
+│   │   │   │   ├── SetupDirectiveService.php      # @script, @register
+│   │   │   │   ├── SubscribeDirectiveService.php  # @subscribe
+│   │   │   │   ├── VarsDirectiveService.php       # @vars
+│   │   │   │   ├── LetConstDirectiveService.php   # @let, @const
+│   │   │   │   ├── TemplateDirectiveService.php   # @extends, @section
+│   │   │   │   ├── YieldDirectiveService.php      # @yield
+│   │   │   │   ├── BlockDirectiveService.php      # @block
+│   │   │   │   ├── FollowDirectiveService.php     # @follow, @watch
+│   │   │   │   ├── WrapperDirectiveService.php    # @wrapper
+│   │   │   │   └── CommonDirectiveService.php     # Common directives
+│   │   │   ├── ViewHelperService.php              # View helper utilities
+│   │   │   ├── ViewStorageManager.php             # View storage
+│   │   │   └── ViewContextService.php             # View context service
 │   │   ├── Support/              # Support Classes
-│   │   └── View/                 # View System
+│   │   │   ├── SPA.php           # SPA helper
+│   │   │   └── ViewState.php     # View state management
+│   │   └── View/                 # View System (legacy)
 │   │
 │   ├── infrastructure/           # Infrastructure Layer
 │   │   └── Database/             # Database Infrastructure
@@ -168,9 +191,17 @@ one-laravel/
 - **ViewConfig.js**: View configuration
 
 ### 4. **Blade Directives** (`src/core/Services/BladeCompilers/`)
-- **EventDirectiveService.php**: Xử lý `@click`, `@keyup`, etc.
-- **BindingDirectiveService.php**: Xử lý `@val`, `@bind`
-- **SetupDirectiveService.php**: Xử lý setup directives
+- **EventDirectiveService.php**: Xử lý `@click`, `@input`, `@submit`, etc.
+- **BindingDirectiveService.php**: Xử lý `@val`, `@bind` (two-way binding)
+- **SubscribeDirectiveService.php**: Xử lý `@subscribe`, `@dontsubscribe`
+- **VarsDirectiveService.php**: Xử lý `@vars` (variable declarations)
+- **LetConstDirectiveService.php**: Xử lý `@let`, `@const`, `@useState`
+- **TemplateDirectiveService.php**: Xử lý `@extends`, `@section`, `@include`
+- **YieldDirectiveService.php**: Xử lý `@yield`, `@yieldattr`
+- **BlockDirectiveService.php**: Xử lý `@block`, `@useblock`
+- **FollowDirectiveService.php**: Xử lý `@follow`, `@watch` (reactive blocks)
+- **WrapperDirectiveService.php**: Xử lý `@wrapper`, `@wrap`
+- **SetupDirectiveService.php**: Xử lý `@script`, `@register`, `@setup`
 
 ## 📝 File Quan Trọng
 

@@ -382,10 +382,14 @@ Tài liệu chi tiết được lưu trong thư mục `docs/`. Dưới đây là
 ### ⚡ Core Systems
 - [Blade Compiler](docs/BLADE_COMPILER_SUMMARY.md) - Tổng quan Blade to JavaScript compiler
 - [Blade to JS Compiler Requirements](docs/BLADE_TO_JS_COMPILER_REQUIREMENTS.md) - Yêu cầu và chi tiết compiler
-- [Observable System](docs/OBSERVABLE_SYSTEM_README.md) - Hệ thống reactive/observable
-- [Observable Documentation](docs/OBSERVABLE_DOCUMENTATION.md) - Tài liệu chi tiết Observable
+- [Views Compiler README](docs/README-views-compiler.md) - Hướng dẫn views compiler
+- [Observable System](docs/OBSERVABLE_SYSTEM_README.md) - Hệ thống reactive/observable (Quick Start)
+- [Observable Documentation](docs/OBSERVABLE_DOCUMENTATION.md) - Tài liệu chi tiết Observable API
+- [Data Observer System](docs/DATA_OBSERVER_SYSTEM_README.md) - Hệ thống quan sát dữ liệu (Quick Start)
+- [Data Observer Documentation](docs/DATA_OBSERVER_DOCUMENTATION.md) - Tài liệu chi tiết Data Observer API
 - [View Context System](docs/VIEW_CONTEXT_SYSTEM.md) - Hệ thống multi-context
 - [View Context Diagrams](docs/VIEW_CONTEXT_DIAGRAMS.md) - Sơ đồ View Context
+- [SPA Scope Configuration](docs/SPA-SCOPE-CONFIGURATION.md) - Cấu hình SPA scope
 
 ### 📝 Directives & Syntax
 - [Custom Directives](docs/CUSTOM_DIRECTIVES.md) - **Tài liệu đầy đủ về tất cả custom directives**
@@ -402,9 +406,8 @@ Tài liệu chi tiết được lưu trong thư mục `docs/`. Dưới đây là
 - [Route Flow Examples](docs/ROUTE-FLOW-EXAMPLES.md) - Ví dụ về route flow
 
 ### 📊 Development & Status
-- [Phase 1 Completion Report](docs/PHASE_1_COMPLETION_REPORT.md) - Báo cáo hoàn thành Phase 1
-- [Improvements Summary](docs/IMPROVEMENTS_SUMMARY.md) - Tóm tắt các cải tiến
-- [Critical Fixes Completion](docs/CRITICAL_FIXES_COMPLETION.md) - Các fix quan trọng đã hoàn thành
+- [Directives Status](docs/DIRECTIVES_STATUS.md) - Trạng thái implementation các directives
+- [Performance Analysis](docs/PERFORMANCE_ANALYSIS_AND_IMPROVEMENT_PLAN.md) - Phân tích và kế hoạch tối ưu
 
 ## 🧪 Testing
 
