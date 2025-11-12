@@ -42,10 +42,10 @@ Tài liệu này mô tả chi tiết tất cả các custom directives trong One
 
 **Đầu ra JavaScript**:
 ```javascript
-// Variables được destructure từ __$spaViewData$__
-let {user, posts = [], count = 0} = __$spaViewData$__ || {};
-
 export function ViewName($$$DATA$$$ = {}, systemData = {}) {
+    // Variables được destructure từ $$$DATA$$$
+    let {user, posts = [], count = 0} = $$$DATA$$$ || {};
+    
     // Variables đã được khai báo và sẵn sàng sử dụng
     // $$$DATA$$$ được truyền vào sẽ được destructure vào các variables này
 }
