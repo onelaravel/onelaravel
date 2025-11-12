@@ -161,9 +161,9 @@ http://localhost:8000
 ```blade
 {{-- resources/views/components/counter.blade.php --}}
 <div>
-    <h2>Counter: @{{ count }}</h2>
-    <button @click="increment">Increment</button>
-    <button @click="decrement">Decrement</button>
+    <h2>Counter: {{$count}}</h2>
+    <button @click(increment())>Increment</button>
+    <button @click(decrement())>Decrement</button>
 </div>
 
 @script
@@ -198,25 +198,95 @@ php artisan blade:compile
 
 ### Custom Directives
 
-**@bind** - Two-way data binding:
-```blade
-<input type="text" @bind($username) />
-<input type="email" @val($email) />
-<p>Hello, {{$username}}!</p>
+#### Event Directives
+Xử lý các sự kiện DOM với syntax: `@event(handler(...))`
 
-<div>Email: {{$email}}</div>
+```blade
+{{-- Click event --}}
+<button @click(handleClick())>Click Me</button>
+
+{{-- Event với tham số --}}
+<button @click(deleteItem($item->id))>Delete</button>
+
+{{-- Multiple events --}}
+<input 
+    @input(handleInput($event))
+    @blur(validateField())
+    @keyup(checkEnter($event))
+/>
+
+{{-- Các event khác --}}
+<form @submit(handleSubmit($event))>
+    <input @change(updateValue($event.target.value)) />
+    <div @mouseenter(showTooltip()) @mouseleave(hideTooltip())>
+        Hover me
+    </div>
+</form>
 ```
 
-**@subscribe** - Subscribe to data changes:
+#### Data Binding Directives
+
+**@bind** - Two-way data binding cho form inputs:
+```blade
+<input type="text" @bind($username) />
+<input type="email" @bind($email) />
+<textarea @bind($description)></textarea>
+<select @bind($category)>
+    <option value="1">Category 1</option>
+    <option value="2">Category 2</option>
+</select>
+
+{{-- Hiển thị giá trị --}}
+<p>Username: {{$username}}</p>
+<p>Email: {{$email}}</p>
+```
+
+**@val** - Render reactive value (chỉ hiển thị):
+```blade
+<div>Count: @val($count)</div>
+<span>Total: @val($total)</span>
+```
+
+#### Reactive Directives
+
+**@subscribe** - Subscribe to data changes và re-render khi data thay đổi:
 ```blade
 @subscribe($user->name)
-    <span>User name changed: @val($user->name)</span>
+    <span>User name: {{$user->name}}</span>
+@endsubscribe
+
+@subscribe($products)
+    <ul>
+        @foreach($products as $product)
+            <li>{{$product->name}}</li>
+        @endforeach
+    </ul>
 @endsubscribe
 ```
 
 **@yieldattr** - Dynamic attributes:
 ```blade
 <button @yieldattr('disabled', $isLoading)>Submit</button>
+<input @yieldattr('readonly', $isReadOnly) />
+<div @yieldattr('class', $dynamicClass)>Content</div>
+```
+
+#### Conditional & Loop Directives
+
+```blade
+{{-- Conditional rendering --}}
+@if($isLoggedIn)
+    <p>Welcome back!</p>
+@else
+    <p>Please login</p>
+@endif
+
+{{-- Loops --}}
+@foreach($items as $item)
+    <div @click(selectItem($item->id))>
+        {{$item->name}}
+    </div>
+@endforeach
 ```
 
 ### Tạo Module mới
