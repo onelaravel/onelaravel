@@ -198,15 +198,13 @@ php artisan blade:compile
 
 ### Custom Directives
 
-**@val** - Render reactive value:
-```blade
-<div>Count: @val($count)</div>
-```
-
 **@bind** - Two-way data binding:
 ```blade
-<input type="text" @bind="username" />
-<p>Hello, @val($username)!</p>
+<input type="text" @bind($username) />
+<input type="email" @val($email) />
+<p>Hello, {{$username}}!</p>
+
+<div>Email: {{$email}}</div>
 ```
 
 **@subscribe** - Subscribe to data changes:
@@ -320,7 +318,7 @@ One Laravel is also open-source software licensed under the MIT license.
 
 ## 👥 Team
 
-- **Creator & Lead Developer**: [Your Name]
+- **Creator & Lead Developer**: Lê Ngọc Doãn
 - **Contributors**: See [CONTRIBUTORS.md](CONTRIBUTORS.md)
 
 ## 🙏 Acknowledgments
@@ -335,7 +333,7 @@ Cảm ơn tới:
 
 - Website: [https://onelaravel.com](https://onelaravel.com)
 - GitHub: [https://github.com/onelaravel/onelaravel](https://github.com/onelaravel/onelaravel)
-- Email: doanlecskh@gmail.com
+- Email: oneaicoder@gmail.com
 
 ## ⭐ Show your support
 
