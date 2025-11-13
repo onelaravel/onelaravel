@@ -31,7 +31,7 @@
                 <a href="{{ url('/') }}" class="nav-brand">One Laravel</a>
                 
                 <ul class="nav-menu">
-                    <li><a href="{{ url('/') }}" data-navigate="/web/home">Home</a></li>
+                    <li><a href="{{ url('/') }}" data-navigate="/web">Home</a></li>
                     <li><a href="{{ url('/about') }}" data-navigate="/web/about">About</a></li>
                     <li><a href="{{ url('/docs') }}" data-navigate="/web/docs">Documentation</a></li>
                     <li><a href="{{ url('/examples') }}" data-navigate="/web/examples">Examples</a></li>
@@ -47,12 +47,12 @@
             </nav>
         </div>
     </header>
-
+    @endssr
     <!-- Main Content -->
-    <main id="spa-content" class="spa-content">
+    <main id="spa-content" class="spa-content" data-server-rendered="true">
         @yield('content')
     </main>
-
+    @ssr
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -104,88 +104,47 @@
         Loading...
     </div>
 
-    <!-- Core JavaScript for SPA -->
-    @include('partials.assets-scripts')
-    
+    <!-- SPA Configuration - Simple config only, all logic handled in JavaScript -->
     <script>
-        // SPA Configuration
-        window.APP_CONFIG = {
-            baseUrl: '{{ url('/') }}',
-            apiUrl: '{{ url('/api') }}',
-            csrfToken: '{{ csrf_token() }}',
-            version: '1.0.0',
-            debug: {{ config('app.debug') ? 'true' : 'false' }}
+        window.APP_CONFIGS = {
+            api: {
+                csrfToken: '{{ csrf_token() }}',
+                baseUrl: '{{ url('/') }}'
+            },
+            mode: '{{ config('app.debug') ? 'development' : 'production' }}',
+            defaultRoute: '/web',
+            container: '#spa-content',
+            router: {
+                mode: 'history',
+                base: '/',
+                allRoutes: {!! json_encode($__helper->exportSpaRoutes(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!},
+                routes: {!! json_encode($__helper->exportComponentRoutes(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
+            },
+            view: {
+                systemData: {
+                    ref: 'config',
+                    title: '{{ trim(view()->yieldContent('meta:title') ?: 'One Laravel - Advanced SPA Framework') }}'
+                },
+                superView: '{{ $__VIEW_PATH__ ?? null }}',
+                ssrData: {!! json_encode($__helper->exportApplicationViewData(), JSON_UNESCAPED_UNICODE) !!}
+            }
         };
+    </script>
 
-        // Initialize SPA when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize One Laravel SPA
-            if (window.App && window.App.init) {
-                window.App.init({
-                    container: '#spa-content',
-                    loadingIndicator: '#spa-loading',
-                    navigationLinks: '[data-navigate]',
-                    defaultView: 'web.home',
-                    baseUrl: window.APP_CONFIG.baseUrl,
-                    debug: window.APP_CONFIG.debug
-                });
+    <!-- Core JavaScript for SPA - Load after APP_CONFIGS is defined -->
+    @include('partials.assets-scripts')
 
-                // Add navigation event listeners
-                document.querySelectorAll('[data-navigate]').forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const route = this.getAttribute('data-navigate');
-                        if (route) {
-                            window.App.navigate(route);
-                        }
-                    });
-                });
-
-                // Handle browser back/forward
-                window.addEventListener('popstate', function(e) {
-                    if (e.state && e.state.route) {
-                        window.App.navigate(e.state.route, false);
-                    }
-                });
-
-                // Add active class to current navigation
-                function updateNavigation() {
-                    const currentPath = window.location.pathname;
-                    document.querySelectorAll('.nav-menu a').forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === currentPath) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
-                
-                updateNavigation();
-                
-                // Update navigation on route change
-                window.addEventListener('spa:navigate', updateNavigation);
-            } else {
-                console.warn('One Laravel SPA not found. Make sure assets are loaded properly.');
+    <!-- SPA Ready Handler -->
+    <script>
+        document.addEventListener('app:ready', function(event) {
+            console.log('🎉 SPA is ready!');
+            if (window.App && window.App.View) {
+                window.App.View.__curentMasterView__ = 'layouts.base';
             }
         });
-
-        // Global error handling
-        window.addEventListener('error', function(e) {
-            if (window.APP_CONFIG.debug) {
-                console.error('Global error:', e.error);
-            }
-        });
-
-        // Performance monitoring
-        if (window.APP_CONFIG.debug) {
-            window.addEventListener('load', function() {
-                setTimeout(() => {
-                    const perfData = performance.getEntriesByType('navigation')[0];
-                    console.log('Page load time:', Math.round(perfData.loadEventEnd - perfData.fetchStart) + 'ms');
-                }, 100);
-            });
-        }
     </script>
 
     @yield('scripts')
 </body>
 </html>
+@endssr

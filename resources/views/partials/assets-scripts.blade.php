@@ -1,5 +1,5 @@
 {{-- Auto-generated webpack assets --}}
-{{-- Generated at: 2025-11-09T18:46:46.556Z --}}
+{{-- Generated at: 2025-11-13T09:14:43.190Z --}}
 
 {{-- Core chunks (highest priority) --}}
 <script src="{{ asset('static/app/core-1c191ae7.js') }}" defer></script>

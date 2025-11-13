@@ -64,44 +64,52 @@ export default {
         usedExports: true, // Enable tree shaking
         sideEffects: false,
         splitChunks: {
-            chunks: 'all',
-            maxSize: 200000, // Split chunks larger than 200KB
+            chunks: 'async', // Only split async chunks, not initial chunks
             cacheGroups: {
-                // Separate vendor libraries
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'vendors',
-                    chunks: 'all',
-                    priority: 10,
-                    maxSize: 150000 // Split vendors larger than 150KB
-                },
-                // Separate core modules
-                core: {
-                    test: /[\\/]resources[\\/]js[\\/]app[\\/]core[\\/]/,
-                    name: 'core',
-                    chunks: 'all',
-                    priority: 8,
-                    maxSize: 100000 // Split core larger than 100KB
-                },
-                // Separate views
-                views: {
-                    test: /[\\/]resources[\\/]js[\\/]app[\\/]views[\\/]/,
-                    name: 'views',
-                    chunks: 'all',
-                    priority: 6,
-                    minChunks: 1,
-                    maxSize: 150000 // Split views larger than 150KB
-                },
-                // Separate helpers/utils
-                utils: {
-                    test: /[\\/]resources[\\/]js[\\/]app[\\/](helpers|services)[\\/]/,
-                    name: 'utils',
-                    chunks: 'all',
-                    priority: 5,
-                    maxSize: 50000
-                }
+                default: false, // Disable default cache groups
+                vendors: false // Disable vendor splitting
             }
         }
+        // Temporarily disabled to fix chunk loading issues with defer scripts
+        // splitChunks: {
+        //     chunks: 'all',
+        //     maxSize: 200000, // Split chunks larger than 200KB
+        //     cacheGroups: {
+        //         // Separate vendor libraries
+        //         vendor: {
+        //             test: /[\\/]node_modules[\\/]/,
+        //             name: 'vendors',
+        //             chunks: 'all',
+        //             priority: 10,
+        //             maxSize: 150000 // Split vendors larger than 150KB
+        //         },
+        //         // Separate core modules
+        //         core: {
+        //             test: /[\\/]resources[\\/]js[\\/]app[\\/]core[\\/]/,
+        //             name: 'core',
+        //             chunks: 'all',
+        //             priority: 8,
+        //             maxSize: 100000 // Split core larger than 100KB
+        //         },
+        //         // Separate views
+        //         views: {
+        //             test: /[\\/]resources[\\/]js[\\/]app[\\/]views[\\/]/,
+        //             name: 'views',
+        //             chunks: 'all',
+        //             priority: 6,
+        //             minChunks: 1,
+        //             maxSize: 150000 // Split views larger than 150KB
+        //         },
+        //         // Separate helpers/utils
+        //         utils: {
+        //             test: /[\\/]resources[\\/]js[\\/]app[\\/](helpers|services)[\\/]/,
+        //             name: 'utils',
+        //             chunks: 'all',
+        //             priority: 5,
+        //             maxSize: 50000
+        //         }
+        //     }
+        // }
     },
     externals: {
         // Don't bundle these, assume they're available globally

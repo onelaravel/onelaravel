@@ -6,9 +6,7 @@
 // import { App } from './app.js';
 
 function initApp(App) {
-    console.log('🔍 initApp called with App:', !!App);
     App = App || window.App;
-    console.log('🔍 App after fallback:', !!App);
     
     // Check if APP_CONFIGS is available
     if (typeof window.APP_CONFIGS === 'undefined') {
@@ -19,8 +17,7 @@ function initApp(App) {
     console.log('✅ APP_CONFIGS found:', window.APP_CONFIGS);
 
     const config = window.APP_CONFIGS;
-    console.log('🚀 Initializing App with config:', config);
-
+    
     // Validate required App modules
     if (typeof App === 'undefined') {
         console.error('App core module not found! Please ensure app.main.js is loaded.');
@@ -41,7 +38,6 @@ function initApp(App) {
     ) : document.body;
     if (container) {
         App.View.setContainer(container);
-        console.log('✅ View container set to default:', container.id || 'body');
     } else {
         console.warn('⚠️ No container specified and no default container found');
     }
@@ -51,7 +47,6 @@ function initApp(App) {
     if (App.View) {
         // If server-rendered, ensure view container is properly hydrated
         if (isServerRendered) {
-            console.log('🚀 Hydrating server-rendered view container');
             // Mark container as hydrated without re-rendering content
             App.View._isHydrated = true;
         }
@@ -59,7 +54,6 @@ function initApp(App) {
         // Initialize View configuration
         if (App.View && config.view) {
             App.View.init(config.view);
-            console.log('✅ View configuration initialized');
         } else if (config.view) {
             console.warn('⚠️ View configuration provided but App.View not found');
         }
@@ -85,7 +79,6 @@ function initApp(App) {
         App.http.setDefaultHeaders(defaultHeaders);
         App.http.setTimeout(config.api.timeout || 10000);
 
-        console.log('✅ API configuration initialized');
     } else if (config.api) {
         console.warn('⚠️ API configuration provided but AppInstance.HttpService not found');
     } else {
@@ -108,7 +101,6 @@ function initApp(App) {
                 { path: `/${scope}/users/:id`, view: `${scope}.user-detail` },
                 { path: `/${scope}/contact`, view: `${scope}.contact` }
             ];
-            console.log('🔧 Auto-generated routes for scope:', scope);
         } else {
             console.log('🔧 Using provided routes:', routes.length);
         }
@@ -120,7 +112,6 @@ function initApp(App) {
                 App.Router.addRoute(route.path, viewName, route.options || {});
             }
         });
-        console.log(`✅ ${routes.length} routes registered`);
 
         // Configure router options
         if (config.router) {
@@ -130,11 +121,35 @@ function initApp(App) {
             if (config.router.base) {
                 App.Router.setBase(config.router.base);
             }
-            if (config.router.beforeEach) {
+            
+            // Setup default router hooks if not provided
+            if (!config.router.beforeEach) {
+                App.Router.beforeEach(function(to, from) {
+                    if (App.mode === 'development') {
+                        console.log('Navigating to:', to.path);
+                    }
+                    return true;
+                });
+            } else {
                 App.Router.beforeEach(config.router.beforeEach);
             }
-            if (config.router.afterEach) {
-                App.Router.afterEach(config.router.afterEach);
+            
+            if (!config.router.afterEach) {
+                App.Router.afterEach(function(to, from) {
+                    if (App.mode === 'development') {
+                        console.log('Navigation complete:', to.path);
+                    }
+                    updateActiveNav(to.path);
+                });
+            } else {
+                App.Router.afterEach(function(to, from) {
+                    // Call custom afterEach if provided
+                    if (typeof config.router.afterEach === 'function') {
+                        config.router.afterEach(to, from);
+                    }
+                    // Always update navigation
+                    updateActiveNav(to.path);
+                });
             }
             console.log('✅ Router configuration applied');
         }
@@ -144,7 +159,6 @@ function initApp(App) {
         App.Router.setDefaultRoute(defaultRoute);
 
         if (isServerRendered) {
-            console.log('🚀 Server-rendered page detected - setting up SPA navigation');
             // Start router but don't handle initial route
             App.Router.start(true); // Pass true to skip initial route handling
 
@@ -152,7 +166,6 @@ function initApp(App) {
             setTimeout(() => {
                 if (container) {
                     container.setAttribute('data-server-rendered', 'false');
-                    console.log('✅ Client-side hydration complete');
                 }
             }, 100);
         } else {
@@ -173,7 +186,6 @@ function initApp(App) {
     // Initialize mode (development/production)
     if (config.mode) {
         App.mode = config.mode;
-        console.log('✅ App mode set to:', config.mode);
 
         // Enable/disable debug logging based on mode
         if (config.mode === 'development') {
@@ -249,19 +261,38 @@ function initApp(App) {
     console.log('🎉 App initialization completed successfully!');
 }
 
-// Navigation helper function
-export function updateActiveNav() {
-    const currentPath = window.location.pathname;
-    let protocol = window.location.protocol;
-    let host = window.location.host;
-    document.querySelectorAll('.nav-link').forEach(link => {
+// Navigation helper function - updates active navigation link
+export function updateActiveNav(currentPath) {
+    // Use provided path or current location
+    const path = currentPath || window.location.pathname;
+    
+    // Find all navigation links (support multiple selectors)
+    const navLinks = document.querySelectorAll('.nav-menu a, .nav-link, nav a[data-navigate]');
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        
+        // Check href attribute
         const href = link.getAttribute('href');
-        if (href === currentPath || href === protocol + '//' + host + currentPath) {
+        // Check data-navigate attribute
+        const navigatePath = link.getAttribute('data-navigate');
+        
+        // Match if href or data-navigate matches current path
+        if (href === path || navigatePath === path) {
             link.classList.add('active');
         } else {
-            link.classList.remove('active');
+            // Also check full URL match
+            const fullUrl = window.location.protocol + '//' + window.location.host + path;
+            if (href === fullUrl) {
+                link.classList.add('active');
+            }
         }
     });
+}
+
+// Make updateActiveNav globally available for router hooks
+if (typeof window !== 'undefined') {
+    window.updateActiveNav = updateActiveNav;
 }
 // try {
 //     // Make updateActiveNav globally available for router config

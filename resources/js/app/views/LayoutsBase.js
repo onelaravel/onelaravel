@@ -124,6 +124,34 @@ export function LayoutsBase($$$DATA$$$ = {}, systemData = {}) {
 
 
 
+<!-- Main Content -->
+<main id="spa-content" class="spa-content" data-server-rendered="true">
+${App.View.yield('content')}
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -8,6 +8,7 @@ import { WebHome } from './../views/WebHome.js';
 import { WebExamples } from './../views/WebExamples.js';
 import { WebContact } from './../views/WebContact.js';
 import { LayoutsTestLayout } from './../views/LayoutsTestLayout.js';
+import { LayoutsBaseBackup } from './../views/LayoutsBaseBackup.js';
 import { LayoutsBase } from './../views/LayoutsBase.js';
 import { LayoutsBaseWithViewId } from './../views/LayoutsBaseWithViewId.js';
 import { LayoutsAdmin } from './../views/LayoutsAdmin.js';
@@ -25,6 +26,7 @@ export const ViewTemplates = {
     'web.examples': WebExamples,
     'web.contact': WebContact,
     'layouts.test-layout': LayoutsTestLayout,
+    'layouts.base-backup': LayoutsBaseBackup,
     'layouts.base': LayoutsBase,
     'layouts.base-with-view-id': LayoutsBaseWithViewId,
     'layouts.admin': LayoutsAdmin,

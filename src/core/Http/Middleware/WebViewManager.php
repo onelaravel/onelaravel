@@ -21,6 +21,8 @@ class WebViewManager
         $__helper = app(ViewHelperService::class);
         $__helper->reset();
         View::share('__helper', $__helper);
+
+        
         return $next($request);
     }
 }

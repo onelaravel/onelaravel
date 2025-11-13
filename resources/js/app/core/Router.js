@@ -481,11 +481,15 @@ export class Router {
 
     start(skipInitial = false) {
         // Detect if page has server-rendered content
-        const isServerRendered = this.App?.View?.detectServerRendered?.() || false;
+        // Check container for data-server-rendered attribute
+        const container = this.App?.View?.container || document.querySelector('#spa-content, #app-root, #app');
+        const isServerRendered = container && container.getAttribute('data-server-rendered') === 'true';
         const URLParts = Router.getUrlParts();
         const initialPath = this.mode === 'history' ? (window.location.pathname + window.location.search) : (window.location.hash.substring(1) || this.defaultRoute);
 
         console.log('🔍 Router.start: Detected SSR:', isServerRendered);
+        console.log('🔍 Router.start: Container:', container?.id || container?.tagName);
+        console.log('🔍 Router.start: Initial path:', initialPath);
 
         this.setActiveRouteForCurrentPath(initialPath);
 
@@ -583,6 +587,31 @@ export class Router {
 
             if (navPath && navPath.trim() !== '') {
                 console.log('🔗 Auto-navigating via data-nav-link attribute:', navPath);
+                e.preventDefault();
+                if (navPath === this.currentUri) {
+                    console.log('🚫 Same path - no navigation needed:', navPath);
+                    return;
+                }
+                this.navigate(navPath);
+                return;
+            }
+        }
+
+        // Check for data-navigate attribute (alternative to data-nav-link)
+        const navigateElement = e.target.closest('[data-navigate]');
+
+        if (navigateElement) {
+            // Check if navigation is disabled
+            if (navigateElement.hasAttribute('data-nav-disabled')) {
+                console.log('🚫 Skipping disabled data-navigate element');
+                return;
+            }
+
+            const navPath = navigateElement.getAttribute('data-navigate');
+            console.log('🔍 navPath from data-navigate:', navPath);
+
+            if (navPath && navPath.trim() !== '') {
+                console.log('🔗 Auto-navigating via data-navigate attribute:', navPath);
                 e.preventDefault();
                 if (navPath === this.currentUri) {
                     console.log('🚫 Same path - no navigation needed:', navPath);

@@ -1,5 +1,6 @@
-import { ViewEngine } from '@app/core/ViewEngine.js';
-    const viewEngine = ViewEngine.getInstance();
+// ViewEngine is not needed here - using View.Engine() from systemData instead
+// import { ViewEngine } from '@app/core/ViewEngine.js';
+// const viewEngine = ViewEngine.getInstance(); // This was causing error: ViewEngine is a class, not a singleton
 
 export function PartialsFooter($$$DATA$$$ = {}, systemData = {}) {
     const {App, View} = systemData;
