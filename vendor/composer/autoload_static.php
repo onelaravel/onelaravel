@@ -52,7 +52,7 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         'ce9671a430e4846b44e1c68c7611f9f5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'd634523d799d97a8ab4807b650bf5cea' => __DIR__ . '/..' . '/pestphp/pest-plugin-laravel/src/Autoload.php',
         '0382984bd63ae49ba1e1fff0277193e3' => __DIR__ . '/..' . '/steak/core/src/helpers/__loader__.php',
-        'e75c43a262115a5cf7e0db42b96222c2' => __DIR__ . '/../..' . '/src/support/helpers.php',
+        '3b297cd24a481d3b5a4fd98450b40545' => __DIR__ . '/../..' . '/src/Support/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -106,9 +106,7 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Clock\\' => 24,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
-            'Support\\' => 8,
             'Steak\\Core\\' => 11,
-            'Shared\\' => 7,
         ),
         'R' => 
         array (
@@ -136,6 +134,10 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
             'PHPUnit\\Architecture\\' => 21,
             'PHPStan\\PhpDocParser\\' => 21,
         ),
+        'O' => 
+        array (
+            'One\\' => 4,
+        ),
         'N' => 
         array (
             'NunoMaduro\\Collision\\' => 21,
@@ -143,7 +145,6 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         'M' => 
         array (
             'Monolog\\' => 8,
-            'Modules\\' => 8,
             'Mockery\\' => 8,
         ),
         'L' => 
@@ -169,7 +170,6 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         ),
         'I' => 
         array (
-            'Infrastructure\\' => 15,
             'Illuminate\\Support\\' => 19,
             'Illuminate\\' => 11,
         ),
@@ -206,8 +206,6 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         'C' => 
         array (
             'Cron\\' => 5,
-            'Core\\' => 5,
-            'Contexts\\' => 9,
             'Carbon\\Doctrine\\' => 16,
             'Carbon\\' => 7,
         ),
@@ -230,8 +228,8 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Whoops\\' => 
         array (
@@ -369,17 +367,9 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         array (
             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
         ),
-        'Support\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/support',
-        ),
         'Steak\\Core\\' => 
         array (
             0 => __DIR__ . '/..' . '/steak/core/src/core',
-        ),
-        'Shared\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/shared',
         ),
         'Ramsey\\Uuid\\' => 
         array (
@@ -462,6 +452,10 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
         ),
+        'One\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
         'NunoMaduro\\Collision\\' => 
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/collision/src',
@@ -469,10 +463,6 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
-        ),
-        'Modules\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/modules',
         ),
         'Mockery\\' => 
         array (
@@ -538,10 +528,6 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         'Jean85\\' => 
         array (
             0 => __DIR__ . '/..' . '/jean85/pretty-package-versions/src',
-        ),
-        'Infrastructure\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/infrastructure',
         ),
         'Illuminate\\Support\\' => 
         array (
@@ -629,14 +615,6 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
         ),
-        'Core\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/core',
-        ),
-        'Contexts\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/contexts',
-        ),
         'Carbon\\Doctrine\\' => 
         array (
             0 => __DIR__ . '/..' . '/carbonphp/carbon-doctrine-types/src/Carbon/Doctrine',
@@ -671,6 +649,7 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         'App\\Http\\Controllers\\WebController' => __DIR__ . '/../..' . '/app/Http/Controllers/WebController.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
+        'App\\View\\Components\\Alert' => __DIR__ . '/../..' . '/app/View/Components/Alert.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'BaconQrCode\\Common\\BitArray' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/BitArray.php',
         'BaconQrCode\\Common\\BitMatrix' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/BitMatrix.php',
@@ -840,53 +819,6 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         'Carbon\\WeekDay' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/WeekDay.php',
         'Carbon\\WrapperClock' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/WrapperClock.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Contexts\\Admin\\Bootstrap' => __DIR__ . '/../..' . '/src/contexts/Admin/Bootstrap.php',
-        'Contexts\\Admin\\Controllers\\BaseAdminController' => __DIR__ . '/../..' . '/src/contexts/Admin/Controllers/BaseAdminController.php',
-        'Contexts\\Admin\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/src/contexts/Admin/Controllers/DashboardController.php',
-        'Contexts\\Admin\\Middleware\\AdminMiddleware' => __DIR__ . '/../..' . '/src/contexts/Admin/Middleware/AdminMiddleware.php',
-        'Contexts\\Api\\Bootstrap' => __DIR__ . '/../..' . '/src/contexts/Api/Bootstrap.php',
-        'Contexts\\Api\\Controllers\\BaseApiController' => __DIR__ . '/../..' . '/src/contexts/Api/Controllers/BaseApiController.php',
-        'Contexts\\Api\\Middleware\\ApiMiddleware' => __DIR__ . '/../..' . '/src/contexts/Api/Middleware/ApiMiddleware.php',
-        'Contexts\\Web\\Bootstrap' => __DIR__ . '/../..' . '/src/contexts/Web/Bootstrap.php',
-        'Contexts\\Web\\Controllers\\BaseWebController' => __DIR__ . '/../..' . '/src/contexts/Web/Controllers/BaseWebController.php',
-        'Contexts\\Web\\Middleware\\NextMiddleware' => __DIR__ . '/../..' . '/src/contexts/Web/Middleware/NextMiddleware.php',
-        'Contexts\\Web\\Middleware\\WebMiddleware' => __DIR__ . '/../..' . '/src/contexts/Web/Middleware/WebMiddleware.php',
-        'Core\\Context' => __DIR__ . '/../..' . '/src/core/Context.php',
-        'Core\\Http\\Middleware\\AdminMiddleware' => __DIR__ . '/../..' . '/src/core/Http/Middleware/AdminMiddleware.php',
-        'Core\\Http\\Middleware\\ClientSideMiddleware' => __DIR__ . '/../..' . '/src/core/Http/Middleware/ClientSideMiddleware.php',
-        'Core\\Http\\Middleware\\Next' => __DIR__ . '/../..' . '/src/core/Http/Middleware/Next.php',
-        'Core\\Http\\Middleware\\SPAScopeMiddleware' => __DIR__ . '/../..' . '/src/core/Http/Middleware/SPAScopeMiddleware.php',
-        'Core\\Http\\Middleware\\WebViewManager' => __DIR__ . '/../..' . '/src/core/Http/Middleware/WebViewManager.php',
-        'Core\\Http\\ViewComposers\\ViewComposer' => __DIR__ . '/../..' . '/src/core/Http/ViewComposers/ViewComposer.php',
-        'Core\\Providers\\BladeDirectiveServiceProvider' => __DIR__ . '/../..' . '/src/core/Providers/BladeDirectiveServiceProvider.php',
-        'Core\\Providers\\OneServiceProvider' => __DIR__ . '/../..' . '/src/core/Providers/OneServiceProvider.php',
-        'Core\\Providers\\ViewContextServiceProvider' => __DIR__ . '/../..' . '/src/core/Providers/ViewContextServiceProvider.php',
-        'Core\\Routing\\Action' => __DIR__ . '/../..' . '/src/core/Routing/Action.php',
-        'Core\\Routing\\Module' => __DIR__ . '/../..' . '/src/core/Routing/Module.php',
-        'Core\\Routing\\RouteMethods' => __DIR__ . '/../..' . '/src/core/Routing/RouteMethods.php',
-        'Core\\Routing\\Router' => __DIR__ . '/../..' . '/src/core/Routing/Router.php',
-        'Core\\Services\\BladeCompilers\\BindingDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/BindingDirectiveService.php',
-        'Core\\Services\\BladeCompilers\\BlockDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/BlockDirectiveService.php',
-        'Core\\Services\\BladeCompilers\\ClientSideDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/ClientSideDirectiveService.php',
-        'Core\\Services\\BladeCompilers\\CommonDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/CommonDirectiveService.php',
-        'Core\\Services\\BladeCompilers\\EventDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/EventDirectiveService.php',
-        'Core\\Services\\BladeCompilers\\FollowDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/FollowDirectiveService.php',
-        'Core\\Services\\BladeCompilers\\LetConstDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/LetConstDirectiveService.php',
-        'Core\\Services\\BladeCompilers\\PhpStructureParserService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/PhpStructureParserService.php',
-        'Core\\Services\\BladeCompilers\\ServerSideDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/ServerSideDirectiveService.php',
-        'Core\\Services\\BladeCompilers\\SetupDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/SetupDirectiveService.php',
-        'Core\\Services\\BladeCompilers\\SimplePhpStructureParserService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/SimplePhpStructureParserService.php',
-        'Core\\Services\\BladeCompilers\\SubscribeDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/SubscribeDirectiveService.php',
-        'Core\\Services\\BladeCompilers\\TemplateDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/TemplateDirectiveService.php',
-        'Core\\Services\\BladeCompilers\\VarsDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/VarsDirectiveService.php',
-        'Core\\Services\\BladeCompilers\\WrapperDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/WrapperDirectiveService.php',
-        'Core\\Services\\BladeCompilers\\YieldDirectiveService' => __DIR__ . '/../..' . '/src/core/Services/BladeCompilers/YieldDirectiveService.php',
-        'Core\\Services\\ViewContextService' => __DIR__ . '/../..' . '/src/core/Services/ViewContextService.php',
-        'Core\\Services\\ViewHelperService' => __DIR__ . '/../..' . '/src/core/Services/ViewHelperService.php',
-        'Core\\Services\\ViewStorageManager' => __DIR__ . '/../..' . '/src/core/Services/ViewStorageManager.php',
-        'Core\\Support\\SPA' => __DIR__ . '/../..' . '/src/core/Support/SPA.php',
-        'Core\\Support\\ViewState' => __DIR__ . '/../..' . '/src/core/Support/ViewState.php',
-        'Core\\System' => __DIR__ . '/../..' . '/src/core/System.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/DayOfMonthField.php',
@@ -3188,7 +3120,6 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
-        'Infrastructure\\Database\\DatabaseService' => __DIR__ . '/../..' . '/src/infrastructure/Database/DatabaseService.php',
         'Jean85\\Exception\\ProvidedPackageException' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Exception/ProvidedPackageException.php',
         'Jean85\\Exception\\ReplacedPackageException' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Exception/ReplacedPackageException.php',
         'Jean85\\Exception\\VersionMissingExceptionInterface' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Exception/VersionMissingExceptionInterface.php',
@@ -4014,53 +3945,6 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         'Mockery\\Undefined' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Undefined.php',
         'Mockery\\VerificationDirector' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/VerificationDirector.php',
         'Mockery\\VerificationExpectation' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/VerificationExpectation.php',
-        'Modules\\Home\\BootstrapProvider' => __DIR__ . '/../..' . '/src/modules/Home/BootstrapProvider.php',
-        'Modules\\Home\\Http\\Controllers\\Admin\\HomeController' => __DIR__ . '/../..' . '/src/modules/Home/Http/Controllers/Admin/HomeController.php',
-        'Modules\\Home\\Http\\Controllers\\Api\\HomeController' => __DIR__ . '/../..' . '/src/modules/Home/Http/Controllers/Api/HomeController.php',
-        'Modules\\Home\\Http\\Controllers\\Web\\HomeController' => __DIR__ . '/../..' . '/src/modules/Home/Http/Controllers/Web/HomeController.php',
-        'Modules\\Home\\Providers\\HomeRouteServiceProvider' => __DIR__ . '/../..' . '/src/modules/Home/Providers/HomeRouteServiceProvider.php',
-        'Modules\\Home\\Services\\HomeService' => __DIR__ . '/../..' . '/src/modules/Home/Services/HomeService.php',
-        'Modules\\Home\\Services\\HomeServiceInterface' => __DIR__ . '/../..' . '/src/modules/Home/Services/HomeServiceInterface.php',
-        'Modules\\PWA\\BootstrapProvider' => __DIR__ . '/../..' . '/src/modules/PWA/BootstrapProvider.php',
-        'Modules\\PWA\\Http\\Controllers\\Admin\\PWAController' => __DIR__ . '/../..' . '/src/modules/PWA/Http/Controllers/Admin/PWAController.php',
-        'Modules\\PWA\\Http\\Controllers\\Web\\PWAController' => __DIR__ . '/../..' . '/src/modules/PWA/Http/Controllers/Web/PWAController.php',
-        'Modules\\PWA\\Providers\\PWARouteServiceProvider' => __DIR__ . '/../..' . '/src/modules/PWA/Providers/PWARouteServiceProvider.php',
-        'Modules\\PWA\\Services\\PWAService' => __DIR__ . '/../..' . '/src/modules/PWA/Services/PWAService.php',
-        'Modules\\PWA\\Services\\PWAServiceInterface' => __DIR__ . '/../..' . '/src/modules/PWA/Services/PWAServiceInterface.php',
-        'Modules\\Shop\\Product\\Category\\Subcategory\\Http\\Controllers\\Admin\\SubcategoryController' => __DIR__ . '/../..' . '/src/modules/Shop/Product/Category/Subcategory/Http/Controllers/Admin/SubcategoryController.php',
-        'Modules\\Shop\\Product\\Category\\Subcategory\\Http\\Controllers\\Api\\SubcategoryController' => __DIR__ . '/../..' . '/src/modules/Shop/Product/Category/Subcategory/Http/Controllers/Api/SubcategoryController.php',
-        'Modules\\Shop\\Product\\Category\\Subcategory\\Http\\Controllers\\Web\\SubcategoryController' => __DIR__ . '/../..' . '/src/modules/Shop/Product/Category/Subcategory/Http/Controllers/Web/SubcategoryController.php',
-        'Modules\\Shop\\Product\\Category\\Subcategory\\Masks\\SubcategoryMask' => __DIR__ . '/../..' . '/src/modules/Shop/Product/Category/Subcategory/Masks/SubcategoryMask.php',
-        'Modules\\Shop\\Product\\Category\\Subcategory\\Models\\Subcategory' => __DIR__ . '/../..' . '/src/modules/Shop/Product/Category/Subcategory/Models/Subcategory.php',
-        'Modules\\Shop\\Product\\Category\\Subcategory\\Providers\\SubcategoryRouteServiceProvider' => __DIR__ . '/../..' . '/src/modules/Shop/Product/Category/Subcategory/Providers/SubcategoryRouteServiceProvider.php',
-        'Modules\\Shop\\Product\\Category\\Subcategory\\Repositories\\SubcategoryRepository' => __DIR__ . '/../..' . '/src/modules/Shop/Product/Category/Subcategory/Repositories/SubcategoryRepository.php',
-        'Modules\\Shop\\Product\\Category\\Subcategory\\Services\\SubcategoryService' => __DIR__ . '/../..' . '/src/modules/Shop/Product/Category/Subcategory/Services/SubcategoryService.php',
-        'Modules\\Shop\\Product\\Category\\Subcategory\\Services\\SubcategoryServiceInterface' => __DIR__ . '/../..' . '/src/modules/Shop/Product/Category/Subcategory/Services/SubcategoryServiceInterface.php',
-        'Modules\\Shop\\Product\\Category\\Subcategory\\SubcategoryServiceProvider' => __DIR__ . '/../..' . '/src/modules/Shop/Product/Category/Subcategory/SubcategoryServiceProvider.php',
-        'Modules\\User\\Http\\Controllers\\Admin\\UserController' => __DIR__ . '/../..' . '/src/modules/User/Http/Controllers/Admin/UserController.php',
-        'Modules\\User\\Http\\Controllers\\Api\\UserController' => __DIR__ . '/../..' . '/src/modules/User/Http/Controllers/Api/UserController.php',
-        'Modules\\User\\Http\\Controllers\\Web\\UserController' => __DIR__ . '/../..' . '/src/modules/User/Http/Controllers/Web/UserController.php',
-        'Modules\\User\\Http\\Requests\\CreateUserRequest' => __DIR__ . '/../..' . '/src/modules/User/Http/Requests/CreateUserRequest.php',
-        'Modules\\User\\Http\\Requests\\UpdateUserRequest' => __DIR__ . '/../..' . '/src/modules/User/Http/Requests/UpdateUserRequest.php',
-        'Modules\\User\\Http\\Resources\\UserResource' => __DIR__ . '/../..' . '/src/modules/User/Http/Resources/UserResource.php',
-        'Modules\\User\\Masks\\UserMask' => __DIR__ . '/../..' . '/src/modules/User/Masks/UserMask.php',
-        'Modules\\User\\Models\\User' => __DIR__ . '/../..' . '/src/modules/User/Models/User.php',
-        'Modules\\User\\ModuleServiceProvider' => __DIR__ . '/../..' . '/src/modules/User/ModuleServiceProvider.php',
-        'Modules\\User\\Providers\\UserRouteServiceProvider' => __DIR__ . '/../..' . '/src/modules/User/Providers/UserRouteServiceProvider.php',
-        'Modules\\User\\Repositories\\UserRepository' => __DIR__ . '/../..' . '/src/modules/User/Repositories/UserRepository.php',
-        'Modules\\User\\Repositories\\UserRepositoryInterface' => __DIR__ . '/../..' . '/src/modules/User/Repositories/UserRepositoryInterface.php',
-        'Modules\\User\\Services\\UserService' => __DIR__ . '/../..' . '/src/modules/User/Services/UserService.php',
-        'Modules\\User\\Services\\UserServiceInterface' => __DIR__ . '/../..' . '/src/modules/User/Services/UserServiceInterface.php',
-        'Modules\\Web\\BootstrapProvider' => __DIR__ . '/../..' . '/src/modules/Web/BootstrapProvider.php',
-        'Modules\\Web\\Http\\Controllers\\Admin\\WebController' => __DIR__ . '/../..' . '/src/modules/Web/Http/Controllers/Admin/WebController.php',
-        'Modules\\Web\\Http\\Controllers\\Api\\WebController' => __DIR__ . '/../..' . '/src/modules/Web/Http/Controllers/Api/WebController.php',
-        'Modules\\Web\\Http\\Controllers\\Web\\WebController' => __DIR__ . '/../..' . '/src/modules/Web/Http/Controllers/Web/WebController.php',
-        'Modules\\Web\\Masks\\WebMask' => __DIR__ . '/../..' . '/src/modules/Web/Masks/WebMask.php',
-        'Modules\\Web\\Models\\Web' => __DIR__ . '/../..' . '/src/modules/Web/Models/Web.php',
-        'Modules\\Web\\Providers\\WebRouteServiceProvider' => __DIR__ . '/../..' . '/src/modules/Web/Providers/WebRouteServiceProvider.php',
-        'Modules\\Web\\Repositories\\WebRepository' => __DIR__ . '/../..' . '/src/modules/Web/Repositories/WebRepository.php',
-        'Modules\\Web\\Services\\WebService' => __DIR__ . '/../..' . '/src/modules/Web/Services/WebService.php',
-        'Modules\\Web\\Services\\WebServiceInterface' => __DIR__ . '/../..' . '/src/modules/Web/Services/WebServiceInterface.php',
         'Monolog\\Attribute\\AsMonologProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Attribute/AsMonologProcessor.php',
         'Monolog\\Attribute\\WithMonologChannel' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Attribute/WithMonologChannel.php',
         'Monolog\\DateTimeImmutable' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/DateTimeImmutable.php',
@@ -6764,15 +6648,6 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         'SebastianBergmann\\Type\\UnknownType' => __DIR__ . '/..' . '/sebastian/type/src/type/UnknownType.php',
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/type/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
-        'Shared\\BaseController' => __DIR__ . '/../..' . '/src/shared/BaseController.php',
-        'Shared\\Interfaces\\AuditableInterface' => __DIR__ . '/../..' . '/src/shared/Interfaces/AuditableInterface.php',
-        'Shared\\Repositories\\BaseRepository' => __DIR__ . '/../..' . '/src/shared/Repositories/BaseRepository.php',
-        'Shared\\Services\\BaseService' => __DIR__ . '/../..' . '/src/shared/Services/BaseService.php',
-        'Shared\\Services\\BladeToSpaCompiler' => __DIR__ . '/../..' . '/src/shared/Services/BladeToSpaCompiler.php',
-        'Shared\\Services\\SmartBladeCompiler' => __DIR__ . '/../..' . '/src/shared/Services/SmartBladeCompiler.php',
-        'Shared\\Services\\ViewStorageService' => __DIR__ . '/../..' . '/src/shared/Services/ViewStorageService.php',
-        'Shared\\Traits\\HasTimestamps' => __DIR__ . '/../..' . '/src/shared/Traits/HasTimestamps.php',
-        'Shared\\Traits\\HasUuid' => __DIR__ . '/../..' . '/src/shared/Traits/HasUuid.php',
         'Steak\\Core\\Async\\Await' => __DIR__ . '/..' . '/steak/core/src/core/Async/Await.php',
         'Steak\\Core\\Concerns\\MagicMethods' => __DIR__ . '/..' . '/steak/core/src/core/Concerns/MagicMethods.php',
         'Steak\\Core\\Concerns\\ModelEventMethods' => __DIR__ . '/..' . '/steak/core/src/core/Concerns/ModelEventMethods.php',
@@ -6867,7 +6742,6 @@ class ComposerStaticInit59b58a5664f02d35aad8860fb47f3500
         'Steak\\Core\\Validators\\ExampleValidator' => __DIR__ . '/..' . '/steak/core/src/core/Validators/ExampleValidator.php',
         'Steak\\Core\\Validators\\Validator' => __DIR__ . '/..' . '/steak/core/src/core/Validators/Validator.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
-        'Support\\ValidationRules' => __DIR__ . '/../..' . '/src/support/ValidationRules.php',
         'Symfony\\Bridge\\PsrHttpMessage\\ArgumentValueResolver\\PsrServerRequestResolver' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/ArgumentValueResolver/PsrServerRequestResolver.php',
         'Symfony\\Bridge\\PsrHttpMessage\\EventListener\\PsrResponseListener' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/EventListener/PsrResponseListener.php',
         'Symfony\\Bridge\\PsrHttpMessage\\Factory\\HttpFoundationFactory' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/Factory/HttpFoundationFactory.php',
