@@ -220,7 +220,7 @@ export class View {
         };
 
         this.listeners = {};
-
+        this.systemData = {};
         this.ssrData = {};
         this.ssrViewManager = new SSRViewDataCollection();
 
@@ -299,6 +299,7 @@ export class View {
 
         this.ssrData = data?.ssrData || {};
         this.ssrViewManager.setViews(this.ssrData);
+        this.systemData = data?.systemData || {};
     }
 
     /**
@@ -1336,7 +1337,7 @@ export class View {
             // get view wrapper
             const viewWrapper = this.templates[name];
             // create view
-            const view = viewWrapper(data ? { ...data } : {}, { App: this.App, View: this });
+            const view = viewWrapper(data ? { ...data } : {}, { App: this.App, View: this, ...this.systemData });
             // view.updateVariableData(data);
             // check if view is valid
             if (!view) {

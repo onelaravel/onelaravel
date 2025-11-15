@@ -44,6 +44,8 @@ function initApp(App) {
 
     const isServerRendered = container.getAttribute('data-server-rendered') === 'true';
 
+    App.env = {...App.env, ...config.env};
+
     if (App.View) {
         // If server-rendered, ensure view container is properly hydrated
         if (isServerRendered) {

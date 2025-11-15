@@ -804,7 +804,7 @@ class BladeCompiler:
             subscribe_js = json.dumps(subscribe_config, ensure_ascii=False)
 
         return_template = setup_script_line + """export function """ + function_name + """($$$DATA$$$ = {}, systemData = {}) {
-    const {App, View} = systemData;
+    const {App, View, __base__, __layout__, __page__, __component__, __partial__, __system__, __env = {}, __helper = {}} = systemData;
     const __VIEW_PATH__ = '""" + view_name + """';
     const __VIEW_ID__ = $$$DATA$$$.__SSR_VIEW_ID__ || """ + JS_FUNCTION_PREFIX + """.generateViewId();
     const __VIEW_TYPE__ = '""" + view_type + """';

@@ -8,31 +8,45 @@ Thư mục `src/` chứa toàn bộ business logic và architecture của hệ t
 
 ```
 src/
-├── contexts/           # Multi-Context Architecture
+├── Contexts/           # Multi-Context Architecture
 │   ├── Api/           # API Context
 │   ├── Web/           # Web Context  
 │   └── Admin/         # Admin Context
-├── modules/            # Business Modules
+├── Modules/            # Business Modules
 │   ├── User/          # User Management
 │   ├── PWA/           # Progressive Web App
 │   └── Setting/       # System Settings
-├── core/               # Core System
+├── Core/               # Core System
 │   ├── System.php     # System Manager
 │   ├── Context.php    # Context Handler
 │   └── Routing/       # Custom Router
-├── shared/             # Shared Components
+├── Shared/             # Shared Components
 │   ├── BaseController.php
 │   ├── BaseService.php
 │   ├── BaseRepository.php
 │   ├── Traits/        # Reusable Traits
 │   ├── Interfaces/    # Contract Interfaces
 │   └── Repositories/  # Base Repository
-├── support/            # Utilities & Helpers
+├── Support/            # Utilities & Helpers
 │   ├── helpers.php    # Helper Functions
 │   └── ValidationRules.php
-└── infrastructure/     # Infrastructure Layer
+└── Infrastructure/     # Infrastructure Layer
     └── Database/      # Database Services
 ```
+
+## 📦 Namespace Structure
+
+Tất cả code trong `src/` sử dụng namespace chính `One\`:
+
+- `One\Core\` - Core system (System, Context, Routing, Services)
+- `One\Modules\` - Business modules (User, Home, PWA, etc.)
+- `One\Contexts\` - Multi-context (Api, Web, Admin)
+- `One\Shared\` - Shared components (BaseController, BaseService, etc.)
+- `One\Support\` - Utilities & helpers
+- `One\Infrastructure\` - Infrastructure layer
+
+**Lưu ý**: Tên thư mục đã được chuẩn hóa theo PSR-4 (viết hoa chữ cái đầu):
+- `src/Core/`, `src/Modules/`, `src/Contexts/`, `src/Shared/`, `src/Support/`, `src/Infrastructure/`
 
 ## 🔧 Cách Sử Dụng
 
@@ -45,7 +59,7 @@ Mỗi context (API, Web, Admin) có:
 
 ```php
 // Sử dụng context
-use Core\System;
+use One\Core\System;
 
 $adminContext = System::admin();
 $webContext = System::web();
@@ -71,7 +85,7 @@ ModuleName/
 
 #### BaseController
 ```php
-use Shared\BaseController;
+use One\Shared\BaseController;
 
 class UserController extends BaseController
 {
@@ -85,7 +99,7 @@ class UserController extends BaseController
 
 #### BaseService
 ```php
-use Shared\Services\BaseService;
+use One\Shared\Services\BaseService;
 
 class UserService extends BaseService
 {
@@ -98,7 +112,7 @@ class UserService extends BaseService
 
 #### BaseRepository
 ```php
-use Shared\Repositories\BaseRepository;
+use One\Shared\Repositories\BaseRepository;
 
 class UserRepository extends BaseRepository
 {
@@ -125,7 +139,7 @@ mask_phone('0123456789'); // 012****789
 
 #### Validation Rules
 ```php
-use Support\ValidationRules;
+use One\Support\ValidationRules;
 
 $rules = [
     'phone' => ValidationRules::vietnamesePhone(),
@@ -138,7 +152,7 @@ $rules = [
 
 #### Database Service
 ```php
-use Infrastructure\Database\DatabaseService;
+use One\Infrastructure\Database\DatabaseService;
 
 $dbService = app(DatabaseService::class);
 
@@ -158,7 +172,7 @@ $dbService->optimizeTable('users');
 - **Contexts**: PascalCase (Api, Web, Admin)
 - **Modules**: PascalCase (User, Product, Order)
 - **Files**: PascalCase cho class, snake_case cho file
-- **Namespaces**: PascalCase (Modules\User, Contexts\Api)
+- **Namespaces**: `One\{Layer}\{Component}` (One\Modules\User, One\Contexts\Api)
 
 ### 2. **Dependency Injection**
 ```php
@@ -182,7 +196,7 @@ try {
 ### 4. **Validation**
 ```php
 // Sử dụng Form Requests
-use Modules\User\Http\Requests\CreateUserRequest;
+use One\Modules\User\Http\Requests\CreateUserRequest;
 
 public function store(CreateUserRequest $request)
 {

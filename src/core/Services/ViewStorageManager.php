@@ -13,6 +13,7 @@ class ViewStorageManager
     protected $registeredResources = [];
     protected $viewStorage = [];
     protected $eventRegistry = [];
+    protected $systemData = [];
     public function __construct()
     {
     }
@@ -123,6 +124,14 @@ class ViewStorageManager
         }, $this->viewStorage);
         return $exportData;
         
+    }
+
+    public function setSystemData($data = []){
+        $this->systemData = array_merge($this->systemData, $data);
+    }
+
+    public function exportSystemData(){
+        return $this->systemData;
     }
 
     /**

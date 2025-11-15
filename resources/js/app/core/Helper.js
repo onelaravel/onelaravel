@@ -8,10 +8,30 @@ import { uniqId } from '../helpers/utils.js';
 export class Helper {
     constructor(App = null) {
         this.App = App;
+        this.config = {};
     }
 
     setApp(App) {
         this.App = App;
+    }
+    setConfig(config) {
+        let {base_url} = config;
+        if(base_url && base_url.endsWith('/')) {
+            base_url = base_url.slice(0, -1);
+        }
+        this.config = {
+            ...this.config,
+            base_url
+        };
+    }
+
+    /**
+     * Get URL
+     * @param {string} path - Path to append to base URL
+     * @returns {string} Full URL
+     */
+    url(path = '') {
+        return `${this.config.base_url}${path ? (path.startsWith('/') ? path : `/${path}`) : ''}`;
     }
 
     /**

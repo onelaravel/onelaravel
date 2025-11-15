@@ -1,6 +1,6 @@
-export function LayoutsBaseWithViewId($$$DATA$$$ = {}, systemData = {}) {
-    const {App, View} = systemData;
-    const __VIEW_PATH__ = 'layouts.base-with-view-id';
+export function WebLayoutsBase($$$DATA$$$ = {}, systemData = {}) {
+    const {App, View, __base__, __layout__, __page__, __component__, __partial__, __system__, __env = {}, __helper = {}} = systemData;
+    const __VIEW_PATH__ = 'web.layouts.base';
     const __VIEW_ID__ = $$$DATA$$$.__SSR_VIEW_ID__ || App.View.generateViewId();
     const __VIEW_TYPE__ = 'view';
     // this is the wrapper element
@@ -54,7 +54,7 @@ export function LayoutsBaseWithViewId($$$DATA$$$ = {}, systemData = {}) {
     const __UPDATE_DATA_TRAIT__ = {};
     const __VARIABLE_LIST__ = [];
 
-    self.setup('layouts.base-with-view-id', {
+    self.setup('web.layouts.base', {
         superView: null,
         hasSuperView: false,
         viewType: 'view',
@@ -124,103 +124,16 @@ export function LayoutsBaseWithViewId($$$DATA$$$ = {}, systemData = {}) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<!-- Main Container with View Identification -->
-<div id="app-root"
-data-server-rendered="true"
-data-spa-view="root"
-data-spa-view-name="${App.View.escString($__VIEW_NAME__ ?? 'layouts.base')}"
-data-spa-view-path="${App.View.escString($__VIEW_PATH__ ?? 'layouts.base')}"
-data-spa-view-id="${App.View.escString(__VIEW_ID__ ?? 'root')}"
-data-spa-view-type="layout">
-
-<!-- Navigation -->
-<nav class="navbar">
-<div class="nav-container">
-<a href="/web" class="nav-brand">SPA App</a>
-<div class="nav-menu">
-<a href="/web" class="nav-link">Home</a>
-<a href="/web/about" class="nav-link">About</a>
-<a href="/web/users" class="nav-link">Users</a>
-<a href="/web/contact" class="nav-link">Contact</a>
-</div>
-</div>
-</nav>
-
-<!-- Main Content Area -->
-<div class="main-content">
-<!-- Content Area with View Identification -->
-<main class="content-area"
-data-spa-view="main-content"
-data-spa-view-name="${App.View.escString(__VIEW_NAME__ ?? 'unknown')}"
-data-spa-view-path="${App.View.escString(__VIEW_PATH__ ?? 'unknown')}"
-data-spa-view-id="${App.View.escString(__VIEW_ID__ ?? 'main')}"
-data-spa-view-type="content">
-
+<!-- Main Content -->
+<main id="spa-content" class="spa-content" data-server-rendered="true">
 ${App.View.yield('content')}
-
-<!-- View Content with Identification -->
-<div data-spa-view="view-content"
-data-spa-view-name="${App.View.escString(__VIEW_NAME__ ?? 'unknown')}"
-data-spa-view-path="${App.View.escString(__VIEW_PATH__ ?? 'unknown')}"
-data-spa-view-id="${App.View.escString(__VIEW_ID__ ?? 'view')}"
-data-spa-view-type="view">
-${App.View.yield('document.body')}
-</div>
 </main>
 
-<!-- Sidebar -->
-<aside class="sidebar"
-data-spa-view="sidebar"
-data-spa-view-name="layouts.sidebar"
-data-spa-view-path="layouts.sidebar"
-data-spa-view-id="sidebar"
-data-spa-view-type="component">
-<h3>Sidebar</h3>
-<p>Default sidebar content</p>
-
-<!-- Dynamic Sidebar Content -->
-<div data-spa-view="sidebar-content"
-data-spa-view-name="partials.sidebar"
-data-spa-view-path="partials.sidebar"
-data-spa-view-id="sidebar-content"
-data-spa-view-type="partial">
-${App.View.yield('sidebar')}
-</div>
-</aside>
-</div>
-
-<!-- Debug Panel -->
-<div id="spa-debug-panel" style="position: fixed; bottom: 20px; right: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 1000; display: none;">
-<h4 style="margin: 0 0 10px 0; color: #333;">SPA Debug</h4>
-<div id="debug-info"></div>
-<button onclick="toggleViewBoundaries()" style="padding: 5px 10px; background: #007cba; color: white; border: none; border-radius: 3px; cursor: pointer; margin-top: 10px;">Toggle View Boundaries</button>
-</div>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-</html>`;
+`;
             } catch(e) {
                 __outputRenderedContent__ = this.__showError(e.message);
                 console.warn(e);

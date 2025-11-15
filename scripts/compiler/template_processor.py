@@ -25,6 +25,10 @@ class TemplateProcessor:
         # Process @verbatim...@endverbatim blocks FIRST to protect content from processing
         blade_code = self._process_verbatim_blocks(blade_code)
         
+        # Remove page/document directives - these are only for PHP compilation, not JS
+        # @pageStart, @pageEnd, @pageOpen, @pageClose, @docStart, @docEnd
+        blade_code = self._remove_page_directives(blade_code)
+        
         # Remove already processed directives
         blade_code = re.sub(r'@extends\s*\([^)]*\)', '', blade_code, flags=re.DOTALL)
         blade_code = re.sub(r'@vars\s*\([^)]*\)', '', blade_code, flags=re.DOTALL)
@@ -850,5 +854,39 @@ class TemplateProcessor:
             for placeholder, content in self.verbatim_blocks.items():
                 processed_content = processed_content.replace(placeholder, content)
         return processed_content
+    
+    def _remove_page_directives(self, blade_code):
+        """
+        Remove page/document directives from Blade code.
+        These directives are only for PHP compilation (server-side),
+        and should be completely removed when compiling to JavaScript (client-side).
+        
+        Directives to remove:
+        - @pageStart, @pageOpen, @docStart
+        - @pageEnd, @pageClose, @docEnd
+        """
+        # Remove all page/document directives (case-insensitive)
+        # These directives don't take parameters, so we just match the directive name
+        # Pattern matches: @directiveName followed by word boundary, optional whitespace, and optional newline
+        directive_patterns = [
+            r'@pageStart\b',
+            r'@pageOpen\b',
+            r'@pageEnd\b',
+            r'@pageClose\b',
+            r'@docStart\b',
+            r'@docEnd\b',
+        ]
+        
+        for pattern in directive_patterns:
+            # Remove directive with optional whitespace and newline after it
+            # This handles cases like:
+            # @pageStart
+            # @pageStart\n
+            # @pageStart   \n
+            blade_code = re.sub(pattern + r'\s*\n?', '', blade_code, flags=re.IGNORECASE | re.MULTILINE)
+            # Also handle directive at end of line (standalone on a line)
+            blade_code = re.sub(r'^\s*' + pattern + r'\s*$', '', blade_code, flags=re.IGNORECASE | re.MULTILINE)
+        
+        return blade_code
     
     

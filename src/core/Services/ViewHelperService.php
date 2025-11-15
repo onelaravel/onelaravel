@@ -254,6 +254,14 @@ class ViewHelperService
         return $this->viewStorageManager->addFollowingBlock($viewPath, $viewId, $followTaskId, $stateKeys);
     }
 
+    public function setSystemData($data = []){
+        return $this->viewStorageManager->setSystemData($data);
+    }
+
+    public function exportSystemData(){
+        return $this->viewStorageManager->exportSystemData();
+    }
+
     /**
      * Store event data để client-side có thể access
      */

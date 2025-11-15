@@ -1,6 +1,6 @@
-export function WebDocs($$$DATA$$$ = {}, systemData = {}) {
-    const {App, View} = systemData;
-    const __VIEW_PATH__ = 'web.docs';
+export function WebPagesDocs($$$DATA$$$ = {}, systemData = {}) {
+    const {App, View, __base__, __layout__, __page__, __component__, __partial__, __system__, __env = {}, __helper = {}} = systemData;
+    const __VIEW_PATH__ = 'web.pages.docs';
     const __VIEW_ID__ = $$$DATA$$$.__SSR_VIEW_ID__ || App.View.generateViewId();
     const __VIEW_TYPE__ = 'view';
     // this is the wrapper element
@@ -54,7 +54,7 @@ export function WebDocs($$$DATA$$$ = {}, systemData = {}) {
     const __UPDATE_DATA_TRAIT__ = {};
     const __VARIABLE_LIST__ = [];
 
-    self.setup('web.docs', {
+    self.setup('web.pages.docs', {
         superView: 'layouts.base',
         hasSuperView: true,
         viewType: 'view',

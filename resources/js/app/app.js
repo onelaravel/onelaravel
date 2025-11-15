@@ -21,6 +21,13 @@ export class Application {
         this.API = API;
         this.mode = 'development';
         this.isInitialized = false;
+        this.env = {
+            mode: 'web',
+            debug: false,
+            base_url: '/',
+            csrf_token: '',
+            router_mode: 'history',
+        }
         
     }
     init() {

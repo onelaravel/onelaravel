@@ -22,7 +22,14 @@ class WebViewManager
         $__helper->reset();
         View::share('__helper', $__helper);
 
-        
+        $__system__ = 'base.';
+        $__base__ = 'web.';
+        $__layout__ = $__base__.'layouts.';
+        $__page__ = $__base__.'pages.';
+        $__component__ = $__base__.'components.';
+        $__partial__ = $__base__.'partials.';
+        View::share(compact('__system__', '__base__', '__layout__', '__page__', '__component__', '__partial__'));
+
         return $next($request);
     }
 }

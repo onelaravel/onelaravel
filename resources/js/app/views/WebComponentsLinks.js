@@ -1,6 +1,6 @@
-export function LayoutsTestLayout($$$DATA$$$ = {}, systemData = {}) {
-    const {App, View} = systemData;
-    const __VIEW_PATH__ = 'layouts.test-layout';
+export function WebComponentsLinks($$$DATA$$$ = {}, systemData = {}) {
+    const {App, View, __base__, __layout__, __page__, __component__, __partial__, __system__, __env = {}, __helper = {}} = systemData;
+    const __VIEW_PATH__ = 'web.components.links';
     const __VIEW_ID__ = $$$DATA$$$.__SSR_VIEW_ID__ || App.View.generateViewId();
     const __VIEW_TYPE__ = 'view';
     // this is the wrapper element
@@ -52,38 +52,9 @@ export function LayoutsTestLayout($$$DATA$$$ = {}, systemData = {}) {
         delete $$$DATA$$$.__SSR_VIEW_ID__;
     }
     const __UPDATE_DATA_TRAIT__ = {};
-    let {data = {"name": "Layout Test"}, todos = ["Task 1", "Task 2", "Task 3"]} = $$$DATA$$$;
-    __UPDATE_DATA_TRAIT__.data = value => data = value;
-    __UPDATE_DATA_TRAIT__.todos = value => todos = value;
-    const __VARIABLE_LIST__ = ["data", "todos"];
-    const set$toduList = __STATE__.__register('toduList');
-    let toduList = null;
-    const setTodoList = (state) => {
-        toduList = state;
-        set$toduList(state);
-    };
-    __STATE__.__setters__.setTodoList = setTodoList;
-    const update$toduList = (value) => {
-        if(__STATE__._canUpdateStateByKey){
-            updateStateByKey('toduList', value);
-            toduList = value;
-        }
-    };
-    const set$newTodo = __STATE__.__register('newTodo');
-    let newTodo = null;
-    const setNewTodo = (state) => {
-        newTodo = state;
-        set$newTodo(state);
-    };
-    __STATE__.__setters__.setNewTodo = setNewTodo;
-    const update$newTodo = (value) => {
-        if(__STATE__._canUpdateStateByKey){
-            updateStateByKey('newTodo', value);
-            newTodo = value;
-        }
-    };
+    const __VARIABLE_LIST__ = [];
 
-    self.setup('layouts.test-layout', {
+    self.setup('web.components.links', {
         superView: null,
         hasSuperView: false,
         viewType: 'view',
@@ -96,40 +67,28 @@ export function LayoutsTestLayout($$$DATA$$$ = {}, systemData = {}) {
             parseRefs: parseRefs,
             createHtml: createHtml,
         hasAwaitData: false,
-        hasFetchData: true,
-        subscribe: true,
-        fetch: {"url": ``, "method": "GET", "data": {}, "headers": {}},
+        hasFetchData: false,
+        subscribe: false,
+        fetch: null,
         data: $$$DATA$$$,
         viewId: __VIEW_ID__,
         path: __VIEW_PATH__,
-        usesVars: true,
+        usesVars: false,
         hasSections: false,
         hasSectionPreload: false,
         hasPrerender: false,
         renderLongSections: [],
         renderSections: [],
         prerenderSections: [],
-        userDefined: {
-    addTodo() {
-                if (newTodo.trim() !== '') {
-                    setTodoList([...toduList, newTodo.trim()]);
-                    setNewTodo('');
-                }
-            },
-            removeTodo(index) {
-                const updatedTodos = toduList.filter((_, i) => i !== index);
-                setTodoList(updatedTodos);
-            }
-},
+        userDefined: {},
         scripts: [],
         styles: [],
         resources: [],
         commitConstructorData: function() {
             // Then update states from data
-            update$toduList(todos);
-            update$newTodo('');
+            
             // Finally lock state updates
-            lockUpdateRealState();
+            
         },
         updateVariableData: function(data) {
             // Update all variables first
@@ -139,10 +98,9 @@ export function LayoutsTestLayout($$$DATA$$$ = {}, systemData = {}) {
                 }
             }
             // Then update states from data
-            update$toduList(todos);
-            update$newTodo('');
+            
             // Finally lock state updates
-            lockUpdateRealState();
+            
         },
         updateVariableItem: function(key, value) {
             this.data[key] = value;
@@ -160,36 +118,14 @@ export function LayoutsTestLayout($$$DATA$$$ = {}, systemData = {}) {
                 
     let __outputRenderedContent__ = '';
             try {
-                __outputRenderedContent__ = `
+                __outputRenderedContent__ = `<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-
-
-<div class="layout">
-<p>Layout View ID: ${App.View.escString(__VIEW_ID__)}</p>
-${App.View.yield('content')}
-</div>
-<div class="test-directives">
-<h3>Todo List:</h3>
-${App.View.execute(() => { if(App.Helper.count(toduList) > 0){ return `
-<ul>
-${App.View.foreach(toduList, (todo, __loopKey, __loopIndex, loop) => `
-<li>
-<a href="javascript:void(0)" ${this.__addEventConfig("click", [{"handler":"addTodo","params":[]}])}>${App.View.escString(todo)}</a>
-<button class="btn showdata" ${this.__addEventConfig("click", [{"handler":"alert","params":[(event) => a.b + c+d+'test']}])}>i</button>
-<button class="btn" ${this.__addEventConfig("click", [{"handler":"removeTodo","params":[loop.index]}])}>x</button>
-
-</li>
-`)}
-</ul>
-`; } else { return `
-<p>No todos available.</p>
-`; }
-return '';
-})}
-<div class="spacer"></div>
-<input type="text" @model($newTodo) name="newTodo" placeholder="Enter new todo" />
-<button ${this.__addEventConfig("click", [{"handler":"addTodo","params":[]}])}>Add Todo</button>
-</div>`;
+<!-- Styles -->
+<link rel="stylesheet" href="${App.View.escString(App.Helper.asset('static/assets/web/css/main.css'))}">
+<link rel="stylesheet" href="${App.View.escString(App.Helper.asset('static/assets/web/css/components.css'))}">`;
             } catch(e) {
                 __outputRenderedContent__ = this.__showError(e.message);
                 console.warn(e);

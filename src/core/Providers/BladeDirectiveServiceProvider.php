@@ -20,6 +20,7 @@ use Core\Services\BladeCompilers\BlockDirectiveService;
 use Core\Services\BladeCompilers\FollowDirectiveService;
 use Core\Services\BladeCompilers\SetupDirectiveService;
 use Core\Services\BladeCompilers\BindingDirectiveService;
+use Core\Services\BladeCompilers\PageDirectiveService;
 
 class BladeDirectiveServiceProvider extends ServiceProvider
 {
@@ -88,6 +89,10 @@ class BladeDirectiveServiceProvider extends ServiceProvider
      */
     protected $bindingService;
     /**
+     * @var PageDirectiveService
+     */
+    protected $pageDirectiveService;
+    /**
      * Register services.
      */
     public function register(): void
@@ -108,6 +113,7 @@ class BladeDirectiveServiceProvider extends ServiceProvider
         $this->followService = new FollowDirectiveService();
         $this->setupService = new SetupDirectiveService();
         $this->bindingService = new BindingDirectiveService();
+        $this->pageDirectiveService = new PageDirectiveService();
         $this->app->singleton(LetConstDirectiveService::class);
         $this->app->singleton(TemplateDirectiveService::class);
     }
@@ -144,6 +150,7 @@ class BladeDirectiveServiceProvider extends ServiceProvider
         $this->blockService->registerDirectives();
         $this->followService->registerDirectives();
         $this->setupService->registerDirectives();
+        $this->pageDirectiveService->registerDirectives();
     }
 
     /**

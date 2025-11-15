@@ -1,9 +1,8 @@
-// ViewEngine is not needed here - using View.Engine() from systemData instead
-// import { ViewEngine } from '@app/core/ViewEngine.js';
-// const viewEngine = ViewEngine.getInstance(); // This was causing error: ViewEngine is a class, not a singleton
+import { ViewEngine } from '@app/core/ViewEngine.js';
+    const viewEngine = ViewEngine.getInstance();
 
 export function PartialsFooter($$$DATA$$$ = {}, systemData = {}) {
-    const {App, View} = systemData;
+    const {App, View, __base__, __layout__, __page__, __component__, __partial__, __system__, __env = {}, __helper = {}} = systemData;
     const __VIEW_PATH__ = 'partials.footer';
     const __VIEW_ID__ = $$$DATA$$$.__SSR_VIEW_ID__ || App.View.generateViewId();
     const __VIEW_TYPE__ = 'view';
